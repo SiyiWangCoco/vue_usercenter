@@ -1,0 +1,130 @@
+@font-face {
+  font-family: PingFang;
+  src: url("font/PingFang.otf");
+}
+
+body {
+background: rgba(255,255,255,1) url(./../image/creditBackground2.png) no-repeat center 0px;
+background-size: contain;
+margin: 0px;
+width:100vw;
+height:100vh; 
+font-family: pingfang, serif;
+font-weight: lighter;
+letter-spacing:1px;
+}
+
+.structure {
+  padding-top: 5%;
+  padding-left: 6vw;
+  padding-right: 6vw;
+}
+
+.header {
+  color: rgb(255,255,255);
+}
+
+
+.back {
+  background: transparent url(./../image/back.png) no-repeat center 0px;
+  border: 0px;
+  width: 6vw;
+  height: 6vw;
+  display: block;
+  background-size: contain;
+}
+
+.titleName {
+  margin-top: 10vw;
+  margin-bottom: 0%;
+  font-size:3.5vw; 
+  
+}
+.titleName h1 {
+  margin-bottom: 2vw;
+}
+
+#chargeHeader {
+  color: #333333;
+  margin-top: 25vw;
+  margin-bottom: 4vw;
+}
+
+#chargeHeader h1 {
+  font-size: 7vw;
+  margin-bottom: 1vw;
+}
+
+.describe {
+  font-size: 4vw;
+}
+
+#creditPackageBoxes {
+  color: rgb(255,255,255);
+}
+
+.creditPackageBox {
+  width: 100%;
+  height: 27vw;
+  margin-bottom: 2vw;
+  background-color: #1c1c1c;
+}
+
+.creditPackageBox img {
+  height: 27vw;
+}
+
+.creditPackageBox div {
+  float: left;
+}
+
+.packageInfo {
+  margin-left: 4.5vw;
+  font-size: 3.5vw;
+  
+}
+
+.packageInfo p {
+  margin-bottom: 0px;
+}
+
+.packageName {
+  font-size: 4vw;
+}
+
+.packageIntro {
+  opacity: 0.6;
+  margin-top: 5px;
+ }
+
+.packagePrice {
+  margin-top: 9px;
+  color: #c72729;
+  font-weight: bold;
+ }
+
+#serverBoxes {
+  color: rgb(255,255,255);
+  letter-spacing: 3px;
+}
+
+#serverBoxes button {
+  background-color: #333333;
+  color: rgb(255,255,255);
+  width: 47%;
+  height: 12vw;
+  font-size: 4.2vw;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+  border: 0px;
+  margin-left: 1vw;
+  margin-right: 1vw;
+}
+
+.serverR {
+  margin-right: 1vw;
+}
+
+.creditPackageBox a {
+  color: rgb(255,255,255);
+}

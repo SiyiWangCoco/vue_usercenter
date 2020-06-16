@@ -1,0 +1,568 @@
+@font-face {
+  font-family: PingFang;
+  src: url("font/PingFang.otf");
+}
+
+.base {
+  background: rgba(25,24,24,1) url(../assets/background.png) no-repeat center 0px;
+  background-size:cover;
+  width:100vw;
+  height:100vh;
+}
+
+.loginBackground {
+  background: rgba(25,24,24,1) url(../assets/loginBackground.png) no-repeat center 0px;
+  background-size:cover;
+  margin: 0px;
+  color: #e1e1e1;
+  width:100vw;
+  height:100vh;
+}
+
+/*all*/
+.structure {
+  padding-left: 13%;
+  padding-top: 13%;
+  padding-right: 13%;
+  padding-bottom: 15%;
+
+}
+
+.structure2 {
+  padding-left: 13%;
+  padding-top: 8vw;
+  padding-right: 13%;
+  padding-bottom: 15%;
+
+}
+
+.cancel {
+  background: transparent url(../assets/cancel.png) no-repeat center 0px;
+  border: 0px;
+  height: 4.5vw;
+  width: 4.5vw;
+  background-size: 100%;
+  float: right;
+  margin-right: -6vw;
+}
+
+.subTiltle {
+  padding-top: 15vw;
+}
+
+.header {
+  margin-bottom: 0%;
+  font-size:7.5vw;
+}
+
+.smallHeader {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 6vw;
+}
+
+.desTiltle{
+  padding-top: 8vw;
+}
+
+.describe {
+  margin-top: 1%;
+  font-size:3.5vw;
+  line-height: 200%;
+}
+
+.smallDescribe {
+  font-size:4vw;
+  line-height: 200%;
+}
+
+.inputBoxes {
+  margin-top: 6%;
+}
+
+/*register*/
+#mainStyle {
+  margin-top: 30px;
+}
+
+/*findPassword*/
+.inputBoxesForFind {
+  margin-top: 6%;
+  vertical-align:middle;
+}
+
+/*all*/
+.inputBoxes input{
+  margin-top: 6%;
+  height: 14vw;
+  letter-spacing:1px;
+  border: 0px;
+  border-radius: 3px;
+  outline: none;
+}
+
+#fourInputs input {
+  margin-top: 5%;
+  height: 14vw;
+}
+
+.inputBoxes input::-webkit-input-placeholder {
+  color: #999999;
+  font-family: pingfang, serif;
+  font-size:3.8vw;
+}
+
+.userInput {
+  padding-left: 17%;
+  width: 83%;
+  font-size:3vw;
+  color: #999999;
+}
+
+.inputBoxes select{
+  margin-top: 6%;
+  height: 14vw;
+  letter-spacing:1px;
+  border: 0px;
+  border-radius: 8px;
+  width: 100%;
+  color: #999999;
+  font-family: pingfang, serif;
+  font-size:3.8vw;
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+}
+
+.aBox {
+  margin-top: 10vw;
+}
+
+.aBox div {
+  margin-top: 3vw;
+  height: 14vw;
+}
+
+.aBox a{
+  font-size:5vw;
+  color: #e1e1e1;
+  text-align: left;
+  vertical-align:middle;
+  margin-left: 20px;
+  text-decoration:none;
+}
+
+.aBox img{
+  border-radius: 100%;
+  vertical-align:middle;
+  height: 80%;
+}
+
+.inputBoxesForThird {
+  margin-top: 6%;
+  vertical-align:middle;
+}
+
+.inputBoxesForThird div{
+  margin-top: 50px;
+}
+
+.inputBoxesForThird input{
+  letter-spacing:2px;
+  border: 0px;
+  width: 30%;
+  background-color: transparent;
+  font-size:5vw;
+  color: #e1e1e1;
+  font-family: pingfang, serif;
+  text-align: right;
+  margin-left: 20px;
+  float: right;
+}
+
+.inputBoxesForThird img{
+  letter-spacing:3px;
+  border-radius: 100%;
+  vertical-align:middle;
+  background-color: #c72729;
+  height: 10vw;
+}
+
+.inputBoxesForThird span{
+  margin-left: 20px;
+  margin-top: 6%;
+  font-size:5vw;
+  vertical-align: middle;
+}
+
+.line {
+  opacity: 0.2;
+  margin-top: 10%;
+}
+
+/*login*/
+#userid {
+  background: rgba(171,171,171,0.3) url(../assets/useridIcon.png) no-repeat;
+  background-position: 5.3% 45%;
+  background-size: 6%;
+}
+
+#password {
+  background: rgba(171,171,171,0.3) url(../assets/passwordIcon.png) no-repeat;
+  background-position: 6% 45%;
+  background-size: 6%;
+}
+
+#oldPassword {
+  background: rgba(171,171,171,0.3) url(../assets/passwordIcon.png) no-repeat;
+  background-position: 6% 45%;
+  background-size: 6%;
+}
+
+/*register*/
+#passwordAgain {
+  background: rgba(171,171,171,0.3) url(../assets/passwordIcon.png) no-repeat;
+  background-position: 6% 45%;
+  background-size: 6%;
+}
+
+.verification {
+  display: inline-block;
+  margin-top: 5%;
+  height: 14vw;
+  width: 100%;
+  font-size: 0px;
+  letter-spacing: 0px;
+  background: rgba(171,171,171,0.3);
+  border-radius: 3px;
+  vertical-align: middle;
+}
+
+#verificationText {
+  display: inline-block;
+  margin-top: 0px;
+  background: transparent url(../assets/verificationIcon.png) no-repeat;
+  background-position: 10% 45%;
+  background-size: 6%;
+  width: 35%;
+  margin-right: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  background-size: 12%;
+}
+
+#verificationCode {
+  float: right;
+  vertical-align: middle;
+  margin-right: 0px;
+  height: 100%;
+}
+
+.verticleLine {
+  float:right;
+  width: 1px;
+  height: 5vw;
+  background: rgba(255,255,255,0.3);
+  margin-top: 5.5vw;
+}
+
+#verificationSend {
+  margin-top: 0px;
+  border:0px;
+  background: transparent;
+  color: rgb(255,255,255);
+  float: right;
+  font-size: 3.4vw;
+  letter-spacing: 1px;
+  padding-right: 5vw;
+  padding-left: 5vw;
+}
+
+#verificationEnter {
+  margin-top: 0px;
+  background: transparent url(../assets/verificationIcon.png) no-repeat;
+  background-position: 12% 45%;
+  background-size: 10%;
+  width: 40%;
+  margin-right: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  padding-left: 13vw;
+  vertical-align: middle;
+}
+
+/*findPasswordByQuestion*/
+.questionIcon {
+  margin-left: 5%;
+  height: 40%;
+  vertical-align: middle;
+  padding-bottom: 2vw;
+}
+
+#question {
+  margin-left: 0px;
+  width: 85%;
+  margin-top: 0px;
+  border: 0px;
+  background: transparent url(../assets/selectArrow.png) no-repeat;
+  background-position: 95% 50%;
+  padding-left: 5%;
+  background-size: 6%;
+  outline: none;
+}
+
+#answer {
+  background: rgba(171,171,171,0.3) url(../assets/verificationIcon.png) no-repeat;
+  background-position: 6% 45%;
+  background-size: 6%;
+}
+
+#answerAgain {
+  background: rgba(171,171,171,0.3) url(../assets/verificationIcon.png) no-repeat;
+  background-position: 6% 45%;
+  background-size: 6%;
+}
+
+/*setIdentity*/
+#realName {
+  background: rgba(171,171,171,0.3) url(../assets/useridIcon.png) no-repeat;
+  background-position: 6% 45%;
+  background-size: 6%;
+}
+
+#identityNum {
+  background: rgba(171,171,171,0.3) url(../assets/identityIcon.png) no-repeat;
+  background-position: 6% 45%;
+  background-size: 6%;
+}
+
+/*setEmail*/
+#userEmail {
+  background: rgba(171,171,171,0.3) url(../assets/emailIcon.png) no-repeat;
+  background-position: 6% 45%;
+  background-size: 6%;
+}
+
+/*findPasswordByPhone*/
+#phoneFind {
+  background: rgba(171,171,171,0.3) url(../assets/phoneIcon.png) no-repeat;
+  background-position: 6% 45%;
+  background-size: 6%;
+}
+
+#fourInputs .verification {
+  height: 14vw;
+}
+
+#fourInputs #verificationSend {
+  margin-top: 0px;
+}
+
+#fourInputs #verificationEnter {
+  margin-top: 0px;
+}
+
+#fourInputs .verticleLine {
+  margin-top: 4vw;
+}
+
+/*findPasswordByEmail*/
+#emailFind {
+  background: rgba(171,171,171,0.3) url(../assets/emailIcon.png) no-repeat;
+  background-position: 6% 45%;
+  background-size: 6%;
+}
+
+#oldPhone{
+  background: rgba(171,171,171,0.05) url(../assets/phoneIcon.png) no-repeat;
+  background-position: 6% 45%;
+  background-size: 6%;
+}
+
+#oldEmail{
+  background: rgba(171,171,171,0.05) url(../assets/emailIcon.png) no-repeat;
+  background-position: 6% 45%;
+  background-size: 6%;
+}
+
+/*all*/
+.submitButton {
+  width: 100%;
+  background-color: #c72729;
+  font-size:5vw;
+  color: #e1e1e1;
+  font-family:pingfang, serif;
+}
+
+#submit {
+  letter-spacing: 3vw;
+}
+
+/*all*/
+.otherFunc {
+  margin-top: 7%;
+  height: 5%;
+  margin-left: 0px;
+}
+
+.otherFunc a {
+  color: #e1e1e1;
+  font-family: pingfang, serif;
+  text-decoration:none;
+  letter-spacing:1px;
+}
+
+/*login*/
+#register {
+  float: left;
+}
+
+#forget {
+  float: right;
+}
+
+/*register*/
+#loginPageBox {
+  margin-top: 35px;
+  text-align: center;
+}
+
+#loginPage {
+  font-size: 4vw;
+}
+
+/*findPassword*/
+#appealA {
+  float: left;
+  font-size: 4vw;
+}
+
+#loginA {
+  float: right;
+  font-size: 4vw;
+}
+
+/*login*/
+.fastLogin {
+  margin-top: 30%;
+  color: #e1e1e1;
+  font-family: pingfang, serif;
+  font-size: 3.3vw;
+}
+
+.fastLogin hr {
+  display:inline-block;
+  width: 34%;
+  opacity: 0.05;
+}
+
+#hr1 {
+  float: left;
+  margin-right: 5%;
+}
+
+#hr2{
+  float: right;
+}
+
+/*login*/
+.loginIcons {
+  margin-top: 10%;
+}
+
+.loginIcons a {
+  display:block;
+  font-size:0px;
+  line-height:0px;
+  border-radius: 100%;
+  border: 0px;
+  width: 13vw;
+  height: 13vw;
+  margin-right: 9%;
+  margin-left: 6.5%;
+  float: left;
+}
+
+#qq {
+  background:rgba(74,78,92,0.8) url(../assets/qq.png) no-repeat;
+  background-position: 50% 50%;
+  background-size: 40%;
+}
+
+#wechat {
+  background:rgba(74,78,92,0.5) url(../assets/wechat.png) no-repeat;
+  background-position: 50% 50%;
+  background-size: 60%;
+}
+
+#weibo {
+  background:rgba(74,78,92,0.5) url(../assets/weibo.png) no-repeat;
+  background-position: 50% 50%;
+  background-size: 60%;
+}
+
+/*all*/
+.textDescribe {
+  margin-top: 7%;
+  margin-right: -1%;
+  margin-left: -1%;
+  color: #e1e1e1;
+  font-size: 3.8vw;
+  line-height: 180%;
+  opacity: 0.9;
+}
+
+.important {
+  font-weight: bold;
+  font-size: 3.3vw;
+  letter-spacing:3px;
+  color: rgb(255,255,255);
+}
+
+.blank {
+  width: 100%;
+  height: 7vw;
+}
+
+#cancelWarning {
+  display: none;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  height: 50vw;
+  background-color: rgba(0,0,0,1);
+  border-top: #c72729 solid 1.5vw;
+  text-align: center;
+}
+
+.warningInnerBox {
+  margin-top: 7vw;
+}
+
+.warningTitle {
+  font-size: 3vw;
+  margin-bottom: 0px;
+}
+.warningInfo {
+  margin-top: 3vw;
+}
+
+.bBox {
+  margin-top: 8vw;
+  letter-spacing: 1vw;
+}
+
+.cancelPhoneNum {
+  border: 0px;
+  height: 9vw;
+  width: 18vw;
+}
+#yes {
+  background-color: #c72729;
+  color: rgb(255,255,255);
+}
+
+#no {
+  background-color: rgb(255,255,255);
+  color: #c72729;
+}

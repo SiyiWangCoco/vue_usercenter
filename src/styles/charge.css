@@ -1,0 +1,172 @@
+@font-face {
+  font-family: PingFang;
+  src: url("font/PingFang.otf")
+}
+
+body {
+  background: rgba(255,255,255,1);
+  margin: 0px;
+  width:100vw;
+  height:100vh; 
+  font-family: pingfang, serif;
+  font-weight: lighter;
+}
+
+.structure {
+  padding-top: 7%;
+  padding-left: 7vw;
+  padding-right: 7vw;
+}
+
+.header {
+  color: rgb(0,0,0);
+}
+
+.back {
+  background: transparent url(./../image/back1.png) no-repeat center 0px;
+  border: 0px;
+  width: 6vw;
+  height: 6vw;
+  display: block;
+  background-size: contain;
+}
+
+.titleName {
+  margin-top: 6.5vw;
+  margin-bottom: 0%;
+  font-size:4vw; 	
+}
+
+.titleName h1{
+  margin-bottom: 0%;	
+}
+
+.describe {
+  font-weight: bold;
+  font-size:4.5vw; 
+  line-height: 200%;
+}
+
+.gameData {
+  margin-top: 2vw;
+  height: 32vw;
+  color: rgb(255,255,255);
+  font-size: 3.7vw;
+}
+
+#ssjjPhone {
+  background: url(./../image/ssjjPhone.png) no-repeat center center;
+  background-size: contain;
+}
+
+#ssjj1 {
+  background: url(./../image/ssjj1.png) no-repeat center center;
+  background-size: contain;
+}
+
+#ssjj2 {
+  background: url(./../image/ssjj2.png) no-repeat center center;
+  background-size: contain;
+}
+
+#ssjj2 .dataRecord {
+  float: right;
+  text-align: right;	
+}
+
+#ssjj2 div {
+  float: right;
+  width: 80%;
+  padding-right: 5vw;
+}
+
+#ssjj2 button {
+  float: right;
+}
+
+.changing {
+  background-color: #c72729;
+  border-radius: 2px;
+  width: 28vw;
+  height: 8vw;
+  font-size: 2.8vw;
+  border: 0px;
+  color: rgb(255,255,255);
+}
+
+.gameData {
+  padding-left: 5vw;
+  padding-top: 2vw;
+}
+
+.comfirmBox {
+  color: rgb(255,255,255);
+  font-size: 4vw;
+}
+
+.blackLine {
+  background: #1c1c1c;
+  height: 10vw;
+  padding: 5vw 3vw 0px 3vw;
+}
+
+.greyLine {
+  background: #3d3c3c;
+  height: 10vw;
+  padding:  5vw 3vw 0px 3vw;
+}
+
+.comfirmLabel {
+  float: left;
+  vertical-align: middle;
+}
+
+.confirmInfo {
+  float: right;
+  font-size: 3.5vw;
+}
+
+.confirmInfo select {
+  font-size: 3.5vw;
+  color: rgb(255,255,255);
+  width: 28vw;
+  height: 5vw;
+  margin: 0px;
+  border: 0px;
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+  outline: none;
+  background: transparent url(./../image/selectArrowWhite.png) no-repeat;
+  background-size: 12%;
+  background-position: 85% 50%;
+  vertical-align: middle;
+}
+
+.confirmInfo select option {
+  color: rgb(0,0,0);
+}
+
+#pay {
+  width: 100%;
+  background-color: #c72729;
+  font-size:4.5vw; 
+  color: rgb(255,255,255);
+  font-family:pingfang, serif;
+  margin-top: 7%;
+  height: 14vw;
+  letter-spacing:3px;
+  border: 0px;
+  border-radius: 3px;
+}
+
+.gameTitle {
+  margin-top: 3vw;
+  margin-bottom: 0px;
+  font-size: 5vw;
+}
+
+.chargeInfo {
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+}

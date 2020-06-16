@@ -1,0 +1,300 @@
+@font-face {
+  font-family: PingFang;
+  src: url("font/PingFang.otf");
+}
+
+body {
+  background: rgba(255,255,255,1) url(../assets/userInfoBackground.png) no-repeat center 0px;
+  background-size: contain;
+  margin: 0px;
+  width:100vw;
+  height:100vh;
+  font-family: pingfang, serif;
+
+}
+
+.background {
+  background: rgba(255,255,255,1) url(./../image/userInfoBackground2.png) no-repeat center 0px;
+  background-size: contain;
+}
+
+.userStruc {
+  padding-top: 3vw;
+}
+
+#setButton {
+  float: right;
+}
+
+#setButton div {
+  float: right;
+
+
+}
+#setImg {
+  vertical-align: middle;
+  height: 5vw;
+  margin-right: 5px;
+}
+
+#setText {
+  color: rgba(255,255,255,0.7);
+  background-color: transparent;
+  border: 0px;
+  font-size: 3.5vw;
+  letter-spacing: 1px;
+  margin-right: 6vw;
+  text-decoration:none;
+}
+
+
+#userTitle {
+  color: rgba(255,255,255,1);
+  height: 31vw;
+  padding-top: 7vw;
+  padding-left: 4vw;
+
+}
+
+#userTitle div{
+  float: left;
+  margin-left: 5vw;
+}
+
+#userIcon {
+  height: 19vw;
+}
+
+#useridNum {
+  padding-top: 2vw; ;
+}
+
+#useridNum p{
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+#useridName{
+  font-size: 5vw;
+  opacity: 1;
+  letter-spacing: 2px;
+}
+
+#userName{
+  font-size: 7vw;
+  opacity: 1;
+}
+
+#useridNumber {
+  font-size: 4vw;
+  margin-left: 8px;
+  opacity: 0.6;
+}
+
+#userNumber {
+  font-size: 4vw;
+  margin-left: 2vw;
+  opacity: 0.7;
+}
+
+
+#useridPhone {
+  font-size: 3.5vw;
+  margin-top: 5px;
+  opacity: 0.6;
+}
+
+
+#userData {
+  font-size: 4vw;
+  line-height: 200%;
+  opacity: 0.7;
+}
+
+.whitleLink {
+  width: 100%;
+  height: 5vw;
+  padding-top: 4vw;
+  padding-bottom: 4vw;
+
+
+}
+
+.underLine {
+  border-bottom: 1px solid rgba(51,51,51,0.1);
+  padding-bottom: 4vw;
+  float: right;
+  width: 80%;
+  height: 5vw;
+
+}
+
+.noUnderLine {
+  padding-bottom: 4vw;
+  float: right;
+  width: 80%;
+  height: 5vw;
+
+}
+
+.details {
+  font-size: 4vw;
+  font-weight: bold;
+  float: left;
+  color: black;
+}
+
+.details2 {
+  font-size: 4vw;
+  font-weight: bold;
+  float: left;
+  color: black;
+  padding-left: 5vw;
+}
+
+.detailIcons{
+  float: left;
+  margin-left: 5vw;
+  height: 6vw;
+}
+
+.detailIconss{
+  float: left;
+  margin-left: 4.8vw;
+  height: 5vw;
+
+}
+
+.detailIcons img {
+  height: 100%;
+}
+
+.detailIconss img {
+  height: 100%;
+}
+
+.rightArrow {
+  float: right;
+  padding-right: 5vw;
+  padding-bottom: 3vw;
+  height: 5vw;
+}
+
+.rightArrow img {
+  height: 100%;
+}
+
+.detailInfo {
+  float: right;
+  margin-right: 20px;
+  font-size: 3.5vw;
+  opacity: 0.5;
+}
+
+#infoCenterTitle {
+  font-size: 4vw;
+  opacity: 0.9;
+  padding-left: 5vw;
+  width: 80%;
+  border-bottom: 1px solid rgba(51,51,51,0.1);
+  border-top: 1px solid rgba(51,51,51,0.1);
+}
+
+#structure {
+  background: url(./../image/userInfoBackground2.png) no-repeat center 0px ;
+  background-size: contain;
+}
+
+.back {
+  display: block;
+  background: transparent url(./../image/back.png) no-repeat center 0px;
+  border: 0px;
+  width: 6vw;
+  height: 6vw;
+  margin-left: 8vw;
+  margin-top: 3vw;
+  background-size: contain;
+}
+
+#changingDetails {
+ margin-top:12vw ;
+}
+
+#peopleFill {
+  margin-top: -7vw;
+  margin-right: -2vw;
+  height: 15vw;
+ }
+
+.whitleLine {
+  width: 100%;
+  height: 7vw;
+  padding-top: 3vw;
+  padding-bottom: 3vw;
+  border-bottom: 1px solid rgba(51,51,51,0.3);
+}
+
+ .whitleLine input {
+  border: 0px;
+  font-size: 4vw;
+  float: right;
+  background: transparent;
+  text-align: right;
+ }
+
+ .whitleLine input::-webkit-input-placeholder {
+  color: rgb(0,0,0);
+  text-align: right;
+}
+
+ .whitleLine select {
+  height:8vw;
+  border: 0px;
+  float: right;
+  background: transparent;
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+  outline: none;
+}
+
+#birthday {
+  opacity: 0.3;
+  letter-spacing: 0px;
+}
+
+#area {
+  opacity: 0.3;
+}
+
+#submitBox {
+  width: 100%;
+  text-align: center;
+}
+
+#submit {
+  width: 84%;
+  background-color: #c72729;
+  font-size:4.5vw;
+  color: rgb(255,255,255);
+  font-family: pingfang, serif;
+  margin-top: 30px;
+  height: 12vw;
+  letter-spacing:2px;
+  border: 0px;
+  border-radius: 3px;
+  letter-spacing: 1vw;
+  text-align: center;
+  margin-left: 1.8vw;
+}
+
+#birthday select {
+  display: inline-block;
+  float: right;
+}
+
+#birthday div {
+  display: inline-block;
+  float: right;
+}
+

@@ -1,0 +1,182 @@
+@font-face {
+  font-family: PingFang;
+  src: url("font/PingFang.otf");
+}
+
+body {
+  background: rgba(255,255,255,1) url(./../image/creditBackground.png) no-repeat center 0px;
+  background-size: contain;
+  margin: 0px;
+  width:100vw;
+  height:100vh; 
+  font-family: pingfang, serif;
+}
+
+.header {
+	padding-top: 7%;
+  padding-left: 7vw;
+  padding-right: 7vw;
+  height: 46vw;
+	color: rgb(255,255,255);
+}
+
+.back {
+	background: transparent url(./../image/back.png) no-repeat center 0px;
+	border: 0px;
+  width: 6vw;
+  height: 6vw;
+  display: block;
+  background-size: contain;
+}
+
+#totalBox {
+	margin-top: 13%;
+}
+
+.totalValue {
+	float: left;
+	width: 50%;
+	font-size:4vw; 
+}
+
+#totalValue2  {
+	padding-left: 30px;
+	width: 40%;
+}
+
+#value {
+	display:inline-block;
+	margin-bottom: 0%;
+	font-size:7.5vw; 	
+  font-weight: bold;
+}
+
+.describe {
+	opacity: 0.8;
+}
+
+#selectBoxes {
+	font-size: 0px;
+}
+
+.selected {
+  height:15vw;
+  font-size: 0px;
+  background-color: rgba(255,255,255,1);
+  border-bottom: rgba(0,0,0,0.5) solid 1px;
+}
+
+.selected input{
+  padding-left: 8vw;
+  font-size: 4.2vw;
+  width: 50%;
+  height: 100%;
+  border:0px;
+  background: rgba(255,255,255,1) url(./../image/selectArrow.png) no-repeat;
+  background-size:7%;
+  background-position: 95% 50%;
+  text-align: left;
+  outline: none;
+}
+
+.select {
+  height:20vw;
+  letter-spacing: 3vw;
+  position: fixed;
+  z-index:999;
+  background: rgba(255,255,255,1);
+  width: 100%;
+  border: 0px;
+  text-align: center;
+  vertical-align: middle;
+  display: none;
+}
+
+.subTimeBtn {
+  height: 50%;
+  margin-top: 5%;
+  width: 28%;
+  border: none;
+  color: rgb(255,255,255);
+  background-color: #333333;
+  vertical-align: middle;
+}
+
+#oneMonth {
+  background-color: #c72729;
+}
+
+.subGameBtn {
+  height: 50%;
+  margin-top: 5%;
+  width: 20%;
+  border: none;
+  color: rgb(255,255,255);
+  background-color: #333333;
+  vertical-align: middle;
+}
+
+#allGame{
+  background-color: #c72729;
+}
+
+#creditDataBox {
+  margin-left: 5vw;
+  margin-right: 5vw;
+  z-index: -1;
+}
+
+.creditData {
+	background: url(./../image/creditRecord.png) no-repeat center center;
+	background-size: contain;
+	border-radius:10px;
+  margin-top: 4vw;
+ 	height: 35vw;
+ 	color: rgb(255,255,255);
+ 	font-size: 3.7vw;
+
+}
+
+.creditData div {
+	float: left;
+}
+
+.dataRecord{
+	width: 60%;
+	padding-top: 5vw;
+	padding-left: 3vw;
+}
+
+.dataValue {
+	width: 30%;
+	padding-top: 10vw;
+  padding-right: 3vw;
+  text-align: center;
+}
+
+.creditData p {
+	margin-top: 0px;
+  margin-bottom: 1vw;
+}
+
+#recordValue {
+	font-size: 8vw;
+}
+
+#changeCode {
+  background-color: rgba(255,255,255,1);
+  border-radius: 2px;
+  width: 25vw;
+  height: 8vw;
+  font-size: 2.8vw;
+  border: 0px;
+}
+
+#cover {
+  display: none;
+  position: fixed;
+  z-index: 500;
+  background-color: rgba(60,60,60,0.3);
+  height: 100%;
+  width: 100%;
+}
