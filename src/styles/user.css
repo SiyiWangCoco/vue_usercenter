@@ -191,12 +191,10 @@
   float: right;
   margin-right: 20px;
   font-size: 3.5vw;
-  opacity: 0.5;
 }
 
 #infoCenterTitle {
   font-size: 4vw;
-  opacity: 0.9;
   padding-left: 5vw;
   width: 80%;
   border-bottom: 1px solid rgba(51,51,51,0.1);

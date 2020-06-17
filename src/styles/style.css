@@ -210,30 +210,19 @@
 }
 
 /*login*/
-#userid {
+.userid {
   background: rgba(171,171,171,0.3) url(../assets/useridIcon.png) no-repeat;
   background-position: 5.3% 45%;
   background-size: 6%;
 }
 
-#password {
-  background: rgba(171,171,171,0.3) url(../assets/passwordIcon.png) no-repeat;
-  background-position: 6% 45%;
-  background-size: 6%;
-}
-
-#oldPassword {
+.password {
   background: rgba(171,171,171,0.3) url(../assets/passwordIcon.png) no-repeat;
   background-position: 6% 45%;
   background-size: 6%;
 }
 
 /*register*/
-#passwordAgain {
-  background: rgba(171,171,171,0.3) url(../assets/passwordIcon.png) no-repeat;
-  background-position: 6% 45%;
-  background-size: 6%;
-}
 
 .verification {
   display: inline-block;
