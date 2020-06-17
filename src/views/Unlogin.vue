@@ -1,10 +1,12 @@
 <template>
-  <div>email</div>
+  <div class="base">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'email',
+  name: 'unlogin',
   data () {
     return {}
   }

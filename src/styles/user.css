@@ -3,19 +3,22 @@
   src: url("font/PingFang.otf");
 }
 
-body {
+
+.base {
   background: rgba(255,255,255,1) url(../assets/userInfoBackground.png) no-repeat center 0px;
   background-size: contain;
   margin: 0px;
   width:100vw;
   height:100vh;
   font-family: pingfang, serif;
-
 }
 
 .background {
-  background: rgba(255,255,255,1) url(./../image/userInfoBackground2.png) no-repeat center 0px;
+  background: rgba(255,255,255,1) url(./../assets/userInfoBackground2.png) no-repeat center 0px;
   background-size: contain;
+  margin: 0px;
+  width:100vw;
+  height:100vh;
 }
 
 .userStruc {
@@ -201,13 +204,13 @@ body {
 }
 
 #structure {
-  background: url(./../image/userInfoBackground2.png) no-repeat center 0px ;
+  background: url(./../assets/userInfoBackground2.png) no-repeat center 0px ;
   background-size: contain;
 }
 
 .back {
   display: block;
-  background: transparent url(./../image/back.png) no-repeat center 0px;
+  background: transparent url(./../assets/back.png) no-repeat center 0px;
   border: 0px;
   width: 6vw;
   height: 6vw;
@@ -297,4 +300,3 @@ body {
   display: inline-block;
   float: right;
 }
-

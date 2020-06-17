@@ -4,7 +4,7 @@
 }
 
 body {
-background: rgba(255,255,255,1) url(./../image/creditBackground2.png) no-repeat center 0px;
+background: rgba(255,255,255,1) url(./../assets/creditBackground2.png) no-repeat center 0px;
 background-size: contain;
 margin: 0px;
 width:100vw;
@@ -26,7 +26,7 @@ letter-spacing:1px;
 
 
 .back {
-  background: transparent url(./../image/back.png) no-repeat center 0px;
+  background: transparent url(./../assets/back.png) no-repeat center 0px;
   border: 0px;
   width: 6vw;
   height: 6vw;

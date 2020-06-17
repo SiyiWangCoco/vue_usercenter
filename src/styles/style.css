@@ -10,6 +10,15 @@
   height:100vh;
 }
 
+.loggedBase {
+  background: rgba(25,24,24,1) url(../assets/loginBackground.png) no-repeat center 0px;
+  background-size:cover;
+  margin: 0px;
+  color: #e1e1e1;
+  width:100vw;
+  height:100vh;
+}
+
 .loginBackground {
   background: rgba(25,24,24,1) url(../assets/loginBackground.png) no-repeat center 0px;
   background-size:cover;
