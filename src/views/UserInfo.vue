@@ -12,52 +12,52 @@
         </div>
         <div id="userTitle">
           <div>
-            <img id="userIcon" src="../assets/userColoredIcon.png">
+            <img id="userIcon" :src='logo'>
           </div>
           <div id="useridNum">
-            <p><span id="useridName">流水席</span><span id="useridNumber">#8909</span></p>
-            <p id="useridPhone">15395171720</p>
+            <p><span id="useridName">{{nick}}</span><span id="useridNumber">{{nick_id}}</span></p>
+            <p id="useridPhone">{{phone}}</p>
           </div>
         </div>
       </div>
       <div id="userDetails">
         <div class="whitleLink">
           <div class="detailIcons"><img src="../assets/passwordColoredIcon.png"></div>
-          <a class="underLine" id="passwordHref" @click="toPassword">
+          <a class="underLine"  @click="toPassword">
             <div class="details">密码设置</div>
             <div class="rightArrow"><img src="../assets/rightArrow.png"></div>
           </a>
         </div>
         <div class="whitleLink">
           <div class="detailIconss"><img src="../assets/identityColoredIcon.png"></div>
-          <a class="underLine" id="identityHref" @click="toIdentity">
+          <a class="underLine"  @click="toIdentity">
             <div class="details">实名认证</div>
             <div class="rightArrow"><img src="../assets/rightArrow.png"></div>
-            <div class="detailInfo" id="realName">江羿平</div>
+            <div class="detailInfo" id="realName">{{real_name}}</div>
           </a>
         </div>
         <div class="whitleLink">
           <div class="detailIcons"><img src="../assets/phoneColoredIcon.png"></div>
-          <a class="underLine" id="phoneHref">
+          <a class="underLine" @click="toPhone">
             <div class="details">手机号码</div>
             <div class="rightArrow"><img src="../assets/rightArrow.png"></div>
-            <div class="detailInfo" id="phoneNum">15395172720</div>
+            <div class="detailInfo" id="phoneNum">{{phone}}</div>
           </a>
         </div>
         <div class="whitleLink">
           <div class="detailIconss"><img src="../assets/emailColoredIcon.png"></div>
-          <a class="underLine" id="emailHref">
+          <a class="underLine" @click="toEmail">
             <div class="details">电子邮箱</div>
             <div class="rightArrow"><img src="../assets/rightArrow.png"></div>
-            <div class="detailInfo" id="emailNum">jyp@wooduan.com</div>
+            <div class="detailInfo" id="emailNum">{{email}}</div>
           </a>
         </div>
         <div class="whitleLink">
           <div class="detailIcons"><img src="../assets/questionColoredIcon.png"></div>
-          <a class="underLine" id="questionHref">
+          <a class="underLine" @click="toQuestion">
             <div class="details">密保问题</div>
             <div class="rightArrow"><img src="../assets/rightArrow.png"></div>
-            <div class="detailInfo" id="question">未设置</div>
+            <div class="detailInfo" id="question">{{question}}</div>
           </a>
         </div>
         <div class="whitleLink">
@@ -114,75 +114,51 @@
     name: 'info',
     data() {
       return {
-       user: {}
+        logo: '../assets/userColoredIcon.png',
+        nick: '',
+        nick_id:'',
+        phone:'未设置',
+        email:'未设置',
+        real_name:'未设置',
+        question: '未设置',
+        user: {}
       }
     },
     mounted: function() {
-        this.api.userInfoGet(this.setInfo);
+        this.api.Get('/api/web/index/getUserBasicInfo', this.setInfo);
       },
     methods: {
       setInfo: function(data) {
         this.user = data;
         //标题区
-        var userIcon = document.getElementById("userIcon");
-        var useridName = document.getElementById("useridName");
-        var useridNumber = document.getElementById("useridNumber");
-        var useridPhone = document.getElementById("useridPhone");
-        //信息区
-        var realName = document.getElementById("realName");
-        var phoneNum = document.getElementById("phoneNum");
-        var emailNum = document.getElementById("emailNum");
-        var question = document.getElementById("question");
-        //信息链接
-        var passwordHref = document.getElementById("passwordHref");
-        var identityHref = document.getElementById("identityHref");
-        var phoneHref = document.getElementById("phoneHref");
-        var emailHref = document.getElementById("emailHref");
-        var questionHref = document.getElementById("questionHref");
-        //标题区
-        useridNumber.innerHTML = "#" + data.nick_id; //id
-        useridPhone.innerHTML = data.phone; //手机号
+        this.nick_id = "#" + data.nick_id; //id
+        this.phone = data.phone; //手机号
         if (data.logo.length != 0) { //头像
-          userIcon.setAttribute("src", data.logo);
+          this.logo = data.logo;
         }
         if (data.nick.length != 0) { //用户名
-          useridName.innerHTML = data.nick;
+          this.nick = data.nick;
         } else if (data.nick.length == 0 && data.account.length != 0) {
-          useridName.innerHTML = data.account;
+          this.nick = data.account;
         }
         //信息区
         if (data.real_name.length != 0) { //实名
-          realName.innerHTML = data.real_name;
-          //identityHref.setAttribute("href", "./identityConfirmed.html");
-        } else {
-          realName.innerHTML = "未设置";
-          //identityHref.setAttribute("href", "./setIdentity.html");
+          this.real_name = data.real_name;
         }
         if (data.phone.length != 0) { //手机号
-          phoneNum.innerHTML = data.phone;
-         // phoneHref.setAttribute("href", "./phoneConfirmed.html");
-        } else {
-          phoneNum.innerHTML = "未设置";
-          //phoneHref.setAttribute("href", "./setPhone.html");
+          this.phone = data.phone;
         }
+
         if (data.email.length != 0) { //邮箱
-          emailNum.innerHTML = data.email;
-         // emailHref.setAttribute("href", "./emailConfirmed.html");
-        } else {
-          emailNum.innerHTML = "未设置";
-         // emailHref.setAttribute("href", "./setEmail.html");
+          this.email = data.email;
         }
         if (data.security_question != null) { //密保
           if (data.security_question.length >= 8) {
-            question.innerHTML = data.security_question.substr(0, 8) + "...";
+            this.question = data.security_question.substr(0, 8) + "...";
 
           } else {
-            question.innerHTML = data.security_question;
+            this.question = data.security_question;
           }
-          //questionHref.setAttribute("href", "./questionConfirmed.html");
-        } else {
-          question.innerHTML = "未设置";
-          //questionHref.setAttribute("href", "./setQuestion.html");
         }
       },
       toPassword: function() {
@@ -193,20 +169,32 @@
         }
       },
       toIdentity: function() {
-        if (this.user.real_name.length != 0) { //实名
+        if (this.user.real_name.length != 0) {
           this.$router.push({name:'identity',params:{has:true, no:false}});
         } else {
           this.$router.push({name:'identity',params:{has:false, no:true}});
         }
       },
       toPhone: function() {
-
+        if (this.user.phone.length != 0) {
+          this.$router.push({name:'phone',params:{has:true, no:false}});
+        } else {
+          this.$router.push({name:'phone',params:{has:false, no:true}});
+        }
       },
       toEmail: function() {
-
+        if (this.user.email.length != 0) {
+          this.$router.push({name:'email',params:{has:true, no:false}});
+        } else {
+          this.$router.push({name:'email',params:{has:false, no:true}});
+        }
       },
       toQuestion: function() {
-
+        if (this.user.security_question != null) {
+          this.$router.push({name:'question',params:{has:true, no:false}});
+        } else {
+          this.$router.push({name:'question',params:{has:false, no:true}});
+        }
       }
     }
   }

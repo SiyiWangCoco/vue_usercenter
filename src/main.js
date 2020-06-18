@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import $ from 'jquery'
 import api from './utils/api.js'
+import axios from 'axios'
 
 Vue.config.productionTip = false
 Vue.prototype.api = api;

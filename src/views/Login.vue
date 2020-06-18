@@ -80,7 +80,7 @@
           email: this.email,
           password: this.password
         }
-        this.api.loginPost(postData);
+        this.api.Post('/api/web/basic/login',postData);
       }
     }
   }

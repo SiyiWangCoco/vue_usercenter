@@ -14,7 +14,7 @@
 
 <script>
   export default {
-    name: 'identity-0',
+    name: 'identityB',
     data() {
       return {
         real_name: '',
@@ -48,7 +48,7 @@
           real_name: this.real_name,
           card_id: this.card_id
         }
-        this.api.idPost(postData);
+        this.api.Post('/api/web/index/realNameAuthentication', postData);
       }
     }
   }
