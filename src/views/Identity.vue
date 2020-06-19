@@ -13,6 +13,7 @@ export default {
   name: 'identity',
   data () {
     return {
+	    has: this.$route.params.has,
       current:''
     }
   },
@@ -21,10 +22,10 @@ export default {
     identityB: function(resolve){require(["../components/BindIdentity.vue"], resolve)}
   },
   mounted: function(){
-     if(this.$route.params.has == undefined ) {
+     if(this.has == undefined ) {
        alert('Timeout');
        window.location.href = '#/user/info';
-     } else if (this.$route.params.has) {
+     } else if (this.has) {
       this.current = 'identityA';
      } else {
       this.current = 'identityB';

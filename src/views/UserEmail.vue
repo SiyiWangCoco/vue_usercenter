@@ -6,7 +6,7 @@
       </div>
       <component :is="current" @change="change" @error='error'></component>
     </div>
-    <unbind v-show='unbind' @yes="toUnbind"></unbind>
+    <unbind v-show='unbind' @yes="toUnbind" :unbindType='unbindType'></unbind>
   </div>
 
 </template>
@@ -20,7 +20,8 @@
       return {
         has: this.$route.params.has,
         current:'',
-        unbind: false
+        unbind: false,
+        unbindType: '邮箱'
       }
     },
     components: {

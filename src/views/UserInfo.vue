@@ -132,7 +132,6 @@
         this.user = data;
         //标题区
         this.nick_id = "#" + data.nick_id; //id
-        this.phone = data.phone; //手机号
         if (data.logo.length != 0) { //头像
           this.logo = data.logo;
         }
@@ -163,37 +162,37 @@
       },
       toPassword: function() {
         if (this.user.password_level > 0) {
-          this.$router.push({name:'password',params:{has:true, no:false}});
+          this.$router.push({name:'password',params:{has:true}});
         } else {
-          this.$router.push({name:'password',params:{has:false, no:true}});
+          this.$router.push({name:'password',params:{has:false}});
         }
       },
       toIdentity: function() {
         if (this.user.real_name.length != 0) {
-          this.$router.push({name:'identity',params:{has:true, no:false}});
+          this.$router.push({name:'identity',params:{has:true}});
         } else {
-          this.$router.push({name:'identity',params:{has:false, no:true}});
+          this.$router.push({name:'identity',params:{has:false}});
         }
       },
       toPhone: function() {
         if (this.user.phone.length != 0) {
-          this.$router.push({name:'phone',params:{has:true, no:false}});
+          this.$router.push({name:'phone',params:{has:true}});
         } else {
-          this.$router.push({name:'phone',params:{has:false, no:true}});
+          this.$router.push({name:'phone',params:{has:false}});
         }
       },
       toEmail: function() {
         if (this.user.email.length != 0) {
-          this.$router.push({name:'email',params:{has:true, no:false}});
+          this.$router.push({name:'email',params:{has:true}});
         } else {
-          this.$router.push({name:'email',params:{has:false, no:true}});
+          this.$router.push({name:'email',params:{has:false}});
         }
       },
       toQuestion: function() {
         if (this.user.security_question != null) {
-          this.$router.push({name:'question',params:{has:true, no:false}});
+          this.$router.push({name:'question',params:{has:true}});
         } else {
-          this.$router.push({name:'question',params:{has:false, no:true}});
+          this.$router.push({name:'question',params:{has:false}});
         }
       }
     }

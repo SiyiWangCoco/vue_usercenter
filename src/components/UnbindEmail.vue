@@ -8,14 +8,14 @@
       <input type="text" class="userInput" id="oldEmail" :placeholder="oldEmail">
       <div class="verification">
         <input type="text" class="userInput" id="verificationEnter" placeholder="邮箱验证码">
-        <input type="button" id="verificationSend" value="发送验证码" onclick="getEmailNum('unbind')">
+        <input type="button" id="verificationSend" value="发送验证码" @click="emailCode">
         <div class="verticleLine"></div>
       </div>
       <div class="verification">
         <input type="text" class="userInput" id="verificationText" placeholder="图片验证码">
         <img id="verificationCode" src="../assets/verificationCode.png" @click="imageCode">
       </div>
-      <input type="button" class="submitButton" id="submit" value="提交" @click="unbind">
+      <input type="button" class="submitButton" id="submit" value="提交" @click="unbindEmail">
     </div>
     <div class="otherFunc" id="loginPageBox">
       <a href="#/appeal" id="loginPage">邮箱找不到？点此申诉</a>
@@ -29,9 +29,8 @@
     data() {
       return {
         oldEmail: 'jyp@wooduan.com',
-        code: NaN,
-        image_code:'',
-        email:''
+        code: '',
+        image_code: ''
       }
     },
     mounted: function() {
@@ -42,38 +41,42 @@
       getEmail: function(data) { //  已有邮箱读取邮箱信息
         this.oldEmail = data.email;
       },
+      emailCode: function() {
+        let postData = {
+          email: this.oldEmail,
+          type: 'unbind',
+          language: "zh"
+        }
+        this.api.Post('/api/web/basic/sendEmailCode', postData);
+      },
       imageCode: function() {
         this.api.Get("/api/VerificationCode/img", this.refreshCode);
       },
-      refreshCode: function(){
+      refreshCode: function() {
         $("#verificationCode").attr("src", "/api/VerificationCode/img");
       },
-      unbind: function() {
-        var oldEmail = document.getElementById("oldEmail");
-        var verificationEnter = document.getElementById("verificationEnter");
-        var verificationText = document.getElementById("verificationText");
-        if (verificationText.value.length == 0) { //未输入图片验证码
+      unbindEmail: function() {
+        this.code = document.getElementById("verificationEnter").value;
+        this.image_code = document.getElementById("verificationText").value;
+        if (this.image_code.length == 0) { //未输入图片验证码
           alert("请输入图片验证码");
           return;
-        } else if (verificationEnter.value.length == 0) { //未输入邮箱验证码
+        } else if (this.code.length == 0) { //未输入邮箱验证码
           alert("请输入邮箱验证码");
           return;
         } else {
-          let num = parseInt(verificationEnter.value);
-          if (isNaN(num) || num.toString().length != verificationEnter.value.length) {
+          let num = parseInt(this.code);
+          if (isNaN(num) || num.toString().length != this.code.length) {
             alert("验证码有误");
             return;
           }
-          this.code = num;
-          this.image_code = verificationText.value;
-          this.email = oldEmail.placeholder;
+          let postData = {
+            email: this.oldEmail,
+            code: num,
+            image_code: this.image_code
+          }
+          this.api.Post('/api/web/index/unBindEmail', postData);
         }
-        let postData = {
-          email: this.email,
-          code: this.code,
-          image_code: this.image_code
-        }
-        this.api.Post('/api/web/index/unBindEmail', postData);
       }
     }
   }

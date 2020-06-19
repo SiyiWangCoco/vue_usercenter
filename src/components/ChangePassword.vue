@@ -15,7 +15,7 @@
 
 <script>
   export default {
-    name: 'password-1',
+    name: 'passwordB',
     data () {
       return {
         class1: 'userInput',
