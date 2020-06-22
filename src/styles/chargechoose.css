@@ -3,12 +3,12 @@
   src: url("font/PingFang.otf");
 }
 
-body {
+.base {
 background: rgba(255,255,255,1) url(./../assets/creditBackground2.png) no-repeat center 0px;
 background-size: contain;
 margin: 0px;
 width:100vw;
-height:100vh; 
+height:100vh;
 font-family: pingfang, serif;
 font-weight: lighter;
 letter-spacing:1px;
@@ -37,8 +37,8 @@ letter-spacing:1px;
 .titleName {
   margin-top: 10vw;
   margin-bottom: 0%;
-  font-size:3.5vw; 
-  
+  font-size:3.5vw;
+
 }
 .titleName h1 {
   margin-bottom: 2vw;
@@ -81,7 +81,7 @@ letter-spacing:1px;
 .packageInfo {
   margin-left: 4.5vw;
   font-size: 3.5vw;
-  
+
 }
 
 .packageInfo p {
@@ -111,7 +111,7 @@ letter-spacing:1px;
 #serverBoxes button {
   background-color: #333333;
   color: rgb(255,255,255);
-  width: 47%;
+  width: 46%;
   height: 12vw;
   font-size: 4.2vw;
   margin-top: 1vw;

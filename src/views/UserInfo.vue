@@ -62,7 +62,7 @@
         </div>
         <div class="whitleLink">
           <div class="detailIcons"><img src="../assets/thirdColoredIcon.png"></div>
-          <a class="noUnderLine" href="./thirdParty.html">
+          <a class="noUnderLine" href="#/user/thirdParty">
             <div class="details">第三方账号绑定</div>
             <div class="rightArrow"><img src="../assets/rightArrow.png"></div>
           </a>
@@ -72,14 +72,14 @@
         </div>
         <div class="whitleLink">
           <div class="detailIcons"><img src="../assets/chargingColoredIcon.png"></div>
-          <a class="underLine" href="./creditCharge.html">
+          <a class="underLine" href="#/user/credit/charge-game">
             <div class="details">在线充值</div>
             <div class="rightArrow"><img src="../assets/rightArrow.png"></div>
           </a>
         </div>
         <div class="whitleLink">
           <div class="detailIcons"><img src="../assets/recordColoredIcon.png"></div>
-          <a class="noUnderLine" href="./credit.html">
+          <a class="noUnderLine" href="#/user/credit/record">
             <div class="details">充值记录</div>
             <div class="rightArrow"><img src="../assets/rightArrow.png"></div>
           </a>
@@ -97,7 +97,7 @@
         </div>
         <div class="whitleLink">
           <div class="detailIcons"><img src="../assets/appealColoredIcon.png"></div>
-          <a class="underLine" href="./appeal.html">
+          <a class="underLine"  @click="toAppeal">
             <div class="details">账号申诉</div>
             <div class="rightArrow"><img src="../assets/rightArrow.png"></div>
           </a>
@@ -147,14 +147,12 @@
         if (data.phone.length != 0) { //手机号
           this.phone = data.phone;
         }
-
         if (data.email.length != 0) { //邮箱
           this.email = data.email;
         }
         if (data.security_question != null) { //密保
           if (data.security_question.length >= 8) {
             this.question = data.security_question.substr(0, 8) + "...";
-
           } else {
             this.question = data.security_question;
           }
@@ -194,6 +192,9 @@
         } else {
           this.$router.push({name:'question',params:{has:false}});
         }
+      },
+      toAppeal: function() {
+        this.$router.push({name:'appeal',query:{info: true}});
       }
     }
   }

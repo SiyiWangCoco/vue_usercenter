@@ -3,11 +3,11 @@
   src: url("font/PingFang.otf")
 }
 
-body {
+.base {
   background: rgba(255,255,255,1);
   margin: 0px;
   width:100vw;
-  height:100vh; 
+  height:100vh;
   font-family: pingfang, serif;
   font-weight: lighter;
 }
@@ -34,16 +34,16 @@ body {
 .titleName {
   margin-top: 6.5vw;
   margin-bottom: 0%;
-  font-size:4vw; 	
+  font-size:4vw;
 }
 
 .titleName h1{
-  margin-bottom: 0%;	
+  margin-bottom: 0%;
 }
 
 .describe {
   font-weight: bold;
-  font-size:4.5vw; 
+  font-size:4.5vw;
   line-height: 200%;
 }
 
@@ -71,7 +71,7 @@ body {
 
 #ssjj2 .dataRecord {
   float: right;
-  text-align: right;	
+  text-align: right;
 }
 
 #ssjj2 div {
@@ -150,7 +150,7 @@ body {
 #pay {
   width: 100%;
   background-color: #c72729;
-  font-size:4.5vw; 
+  font-size:4.5vw;
   color: rgb(255,255,255);
   font-family:pingfang, serif;
   margin-top: 7%;

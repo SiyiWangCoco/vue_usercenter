@@ -8,7 +8,6 @@
     </div>
     <unbind v-show='unbind' @yes="toUnbind" :unbindType='unbindType'></unbind>
   </div>
-
 </template>
 
 <script>
@@ -19,15 +18,21 @@
     data() {
       return {
         has: this.$route.params.has,
-        current:'',
+        current: '',
         unbind: false,
         unbindType: '手机'
       }
     },
     components: {
-      phoneA: function(resolve){require(["../components/BindPhone.vue"], resolve)},
-      phoneB: function(resolve){require(["../components/PhoneConfirmed.vue"], resolve)},
-      phoneC: function(resolve){require(["../components/UnbindPhone.vue"], resolve)},
+      phoneA: function(resolve) {
+        require(["../components/BindPhone.vue"], resolve)
+      },
+      phoneB: function(resolve) {
+        require(["../components/PhoneConfirmed.vue"], resolve)
+      },
+      phoneC: function(resolve) {
+        require(["../components/UnbindPhone.vue"], resolve)
+      },
       'unbind': UnbindConfirmedAlert
     },
     mounted: function() {
@@ -35,20 +40,26 @@
         alert('Timeout');
         window.location.href = '#/user/info';
       } else if (this.has) {
-      this.current = 'phoneB';
-     } else {
-      this.current = 'phoneA';
+        this.current = 'phoneB';
+      } else {
+        this.current = 'phoneA';
       }
     },
     methods: {
       error: function(child) { //  找不到用户邮箱信息跳转绑定邮箱（系统错误时触发）
-        if (child) {this.current = 'phoneA'}
+        if (child) {
+          this.current = 'phoneA'
+        }
       },
       change: function(child) { //  更改需要解绑警告
-        if (child) {this.unbind = true}
+        if (child) {
+          this.unbind = true
+        }
       },
-      toUnbind: function(child){ //  确认解绑
-        if (child) { this.current = 'phoneC'};
+      toUnbind: function(child) { //  确认解绑
+        if (child) {
+          this.current = 'phoneC'
+        };
         this.unbind = false;
       }
     }

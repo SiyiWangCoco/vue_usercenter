@@ -16,6 +16,9 @@ const Post = (api, postData) => {
         token = res.data.data.user_token;
       } else if (api == '/api/web/basic/sendEmailCode' || api == '/api/web/basic/sendMessageCode') {
         return;
+      } else if (api == '/api/web/index/modifyPassword') {
+        window.location.href = '#/login';
+        return;
       }
       window.location.href = '#/user/info';
     } else { // 请求失败code和信息
@@ -46,9 +49,20 @@ const Get = (api, func) => {
   });
 }
 
+const simpleGet = (api, getData) => {
+  return axios.get(api, {
+    params: getData,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'token': token
+    }
+  })
+}
+
 let modules = {
   Post,
-  Get
+  Get,
+  simpleGet
 }
 
 export default modules

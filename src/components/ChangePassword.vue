@@ -8,7 +8,7 @@
       <input type="password" :class="[class1,class2]" id="oldPassword" placeholder="请填入您的旧密码">
       <input type="password" :class="[class1,class2]" id="password" placeholder="请填入您的新密码">
       <input type="password" :class="[class1,class2]" id="passwordAgain" placeholder="请再次输入您的新密码">
-      <input type="button" class="submitButton" id="submit" value="提交" onclick="oldPasswordTest()">
+      <input type="button" class="submitButton" id="submit" value="提交" @click="old()">
     </div>
   </div>
 </template>
@@ -21,7 +21,12 @@
         class1: 'userInput',
         class2: 'password'
       }
-    }
+    },
+    methods: {
+      old: function() {
+          this.$emit('old',true);
+        }
+      }
   }
 </script>
 

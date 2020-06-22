@@ -137,17 +137,17 @@ export default new Router({
           component: creditRecordPage
         },
         {
-          path: 'change-game',
+          path: 'charge-game',
           name: 'game',
           component: chargeGamePage
         },
         {
-          path: 'change-region',
+          path: 'charge-region',
           name: 'region',
           component: chargeRegionPage
         },
         {
-          path: 'change-rule',
+          path: 'charge-rule',
           name: 'rule',
           component: chargeRulePage
         },

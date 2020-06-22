@@ -19,15 +19,21 @@
     data() {
       return {
         has: this.$route.params.has,
-        current:'',
+        current: '',
         unbind: false,
         unbindType: '邮箱'
       }
     },
     components: {
-      emailA: function(resolve){require(["../components/Bindemail.vue"], resolve)},
-      emailB: function(resolve){require(["../components/EmailConfirmed.vue"], resolve)},
-      emailC: function(resolve){require(["../components/Unbindemail.vue"], resolve)},
+      emailA: function(resolve) {
+        require(["../components/Bindemail.vue"], resolve)
+      },
+      emailB: function(resolve) {
+        require(["../components/EmailConfirmed.vue"], resolve)
+      },
+      emailC: function(resolve) {
+        require(["../components/Unbindemail.vue"], resolve)
+      },
       'unbind': UnbindConfirmedAlert
     },
     mounted: function() {
@@ -35,20 +41,26 @@
         alert('Timeout');
         window.location.href = '#/user/info';
       } else if (this.has) {
-      this.current = 'emailB';
-     } else {
-      this.current = 'emailA';
+        this.current = 'emailB';
+      } else {
+        this.current = 'emailA';
       }
     },
     methods: {
       error: function(child) { //  找不到用户邮箱信息跳转绑定邮箱（系统错误时触发）
-        if (child) {this.current = 'emailA'}
+        if (child) {
+          this.current = 'emailA'
+        }
       },
       change: function(child) { //  更改需要解绑警告
-        if (child) {this.unbind = true}
+        if (child) {
+          this.unbind = true
+        }
       },
-      toUnbind: function(child){ //  确认解绑
-        if (child) { this.current = 'emailC'};
+      toUnbind: function(child) { //  确认解绑
+        if (child) {
+          this.current = 'emailC'
+        };
         this.unbind = false;
       }
     }
