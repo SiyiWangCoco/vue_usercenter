@@ -29,6 +29,7 @@
         code: '',
         password: '',
         passwordAgain: '',
+        key: "wizard-member-client-message-code",
         class1: 'userInput',
         class2: 'password'
       }
