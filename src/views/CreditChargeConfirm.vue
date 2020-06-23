@@ -31,7 +31,7 @@
       <div class="blackLine">
         <div class="comfirmLabel">支付方式：</div>
         <div class="confirmInfo">
-          <select id="paySele">
+          <select id="paySele" v-model="paySele">
             <option v-for="(pay,i) in payList" :value="pay.id" :id="pay.id">{{pay.name}}</option>
           </select>
         </div>
@@ -54,6 +54,7 @@ export default {
       ruleAmount: '',
       gold:'',
       payList:[],
+      paySele: '6',
       gameId: this.$route.query.gameId,
       regionId: this.$route.query.regionId,
       ruleId: this.$route.query.ruleId
@@ -113,12 +114,11 @@ export default {
       }
     },
     pay: function() {
-     var paySele = document.getElementById("paySele");
      let postData = {
           game_id : parseInt(this.gameId),
           region_id: parseInt(this.regionId),
           language: "zh",
-          payment_id: parseInt(paySele.value),
+          payment_id: parseInt(this.paySele),
           amount: parseInt(this.ruleAmount),
           currency: "CNY",
           gold: parseInt(this.gold),

@@ -5,9 +5,9 @@
       <div class="describe">请填写您的手机号码和验证码</div>
     </div>
     <div class="inputBoxes" id="mainStyle">
-      <input type="text" class="userInput" id="phoneFind" placeholder="请填写您的手机号码">
+      <input type="text" class="userInput" id="phoneFind" placeholder="请填写您的手机号码" v-model="phone">
       <div class="verification">
-        <input type="text" class="userInput" id="verificationEnter" placeholder="请输入验证码">
+        <input type="text" class="userInput" id="verificationEnter" placeholder="请输入验证码" v-model="code">
         <input type="button" id="verificationSend" value="发送验证码" @click="phoneCode">
         <div class="verticleLine"></div>
       </div>
@@ -31,7 +31,6 @@
     },
     methods: {
       phoneCode: function() { //获取手机号码(绑定手机)
-        this.phone = document.getElementById("phoneFind").value;
         let phoneReg = /^1[3-578]\d{9}$/;
         if (phoneReg.test(this.phone) == false) { //输入为非法手机号
           alert("请输入正确的手机号码")
@@ -46,8 +45,6 @@
         }
       },
       bindPhone: function() {
-        this.phone = document.getElementById("phoneFind").value;
-        this.code = document.getElementById("verificationEnter").value;
         if (this.phone.length == 0) { //未输入手机号码
           alert("请输入您的手机号码");
           return;

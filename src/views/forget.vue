@@ -1,7 +1,7 @@
 <template>
   <div class="structure2">
     <div>
-      <a class="cancel" href="#/find"></a>
+      <a class="cancel" @click="toFind"></a>
     </div>
     <router-view></router-view>
   </div>
@@ -11,7 +11,14 @@
 export default {
   name: 'forget',
   data () {
-    return {}
+    return {
+      account: this.$route.query.account
+    }
+  },
+  methods:{
+    toFind:function(){
+      this.$router.push({name:'find',query:{account: this.account}});
+    }
   }
 }
 </script>

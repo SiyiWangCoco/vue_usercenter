@@ -5,13 +5,13 @@
       <div class="describe">使用账号/手机/邮箱和密码登录</div>
     </div>
     <div class="inputBoxes">
-      <input type="text" :class="[class1,class2]" id="userid" placeholder="请输入账号/邮箱/手机号码">
-      <input type="password" :class="[class1,class3]" id="password" placeholder="请输入您的密码">
+      <input type="text" :class="[class1,class2]" id="userid" placeholder="请输入账号/邮箱/手机号码" v-model="userid">
+      <input type="password" :class="[class1,class3]" id="password" placeholder="请输入您的密码" v-model="password">
       <input type="button" class="submitButton" id="login" value="立即登录" @click="login">
     </div>
     <div class="otherFunc">
       <a href="#/register" id="register">没有账号？立即注册</a>
-      <a href="#/find" id="forget">忘记密码？</a>
+      <a @click="find" id="forget">忘记密码？</a>
     </div>
     <div class="fastLogin">
       <hr id="hr1"> 快捷登录
@@ -37,32 +37,30 @@
         phone: '',
         account: '',
         email: '',
-        password: ''
+        password: '',
+        userid: ''
       }
     },
     methods: {
       login: function() { // 登录事件
-        var userid = document.getElementById('userid');
-        var passwordNum = document.getElementById('password');
 
-        if (userid.value.length == 0) { //  未输入账号
+        if (this.userid.length == 0) { //  未输入账号
           alert('请输入账号/邮箱/手机号码');
           return;
-        } else if (passwordNum.value.length == 0) { //  未输入密码
+        } else if (this.password.length == 0) { //  未输入密码
           alert('请输入您的密码');
           return;
         } else {
-          this.password = passwordNum.value;
           let phoneReg = /^1[3-578]\d{9}$/;
           let mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
-          if (mailReg.test(userid.value)) { // 输入为邮箱
+          if (mailReg.test(this.userid)) { // 输入为邮箱
             this.type = 4;
-            this.email = userid.value;
+            this.email = this.userid;
           } else { //  非邮箱用户名
-            let num = parseInt(userid.value);
-            if (isNaN(num) || num.toString().length != userid.value.length) { // 输入为账号
+            let num = parseInt(this.userid);
+            if (isNaN(num) || num.toString().length != this.userid.length) { // 输入为账号
               this.type = 2;
-              this.account = userid.value;
+              this.account = this.userid;
             } else if (phoneReg.test(num)) { //  输入为手机号
               this.type = 1;
               this.phone = num;
@@ -80,7 +78,15 @@
           email: this.email,
           password: this.password
         }
-        this.api.Post('/api/web/basic/login',postData);
+        this.api.Post('/api/web/basic/login', postData);
+      },
+      find: function() {
+        if (this.userid.length == 0) { //  未输入账号
+          alert('请输入账号/邮箱/手机号码');
+          return;
+        } else {
+          this.$router.push({name:'find',query:{account: this.userid}});
+        }
       }
     }
   }

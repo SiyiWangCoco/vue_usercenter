@@ -1,7 +1,7 @@
 <template>
   <div class="structure2">
     <div>
-      <a class="cancel" :href="back"></a>
+      <a class="cancel" @click="back"></a>
     </div>
     <div class="desTiltle">
       <h1 class="header">账号申诉</h1>
@@ -22,18 +22,20 @@
     data() {
       return {
         info: this.$route.query.info,
-        back: ''
+        account: this.$route.query.account
       }
     },
-    mounted: function() {
+    methods: {
+      back: function() {
       if (this.info == undefined) {
         alert('Timeout');
-         this.back = '#/login';
+         this.$router.push({name:'login'});
       } else if (this.info) {
-        this.back = '#/user/info';
+        this.$router.push({ name: 'info'});
       } else {
-        this.back = '#/find';
+        this.$router.push({ name: 'find', query: {account: this.account}});
       }
+    }
     }
   }
 </script>

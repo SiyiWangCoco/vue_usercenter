@@ -8,15 +8,15 @@
     <div class="aBox">
       <div>
         <img class="wayIcon" src="../assets/emailFindIcon.png">
-        <a id="emailWay" href="#/forget/email"> 电子邮箱</a>
+        <a id="emailWay" @click="toEmailFind" > 电子邮箱</a>
       </div>
       <div>
         <img class="wayIcon" src="../assets/phoneFindIcon.png">
-        <a id="phoneWay" href="#/forget/phone"> 手机号码</a>
+        <a id="phoneWay" @click="toPhoneFind"> 手机号码</a>
       </div>
       <div>
         <img class="wayIcon" src="../assets/questionFindIcon.png">
-        <a id="questionWay" href="#/forget/question"> 密保问题</a>
+        <a id="questionWay" @click="toQuestionFind"> 密保问题</a>
       </div>
     </div>
     <hr class="line">
@@ -31,11 +31,22 @@
   export default {
     name: 'find',
     data() {
-      return {}
+      return {
+        account: this.$route.query.account
+      }
     },
     methods: {
       toAppeal: function() {
-        this.$router.push({ name: 'appeal', query: {info: false}});
+        this.$router.push({ name: 'appeal', query: {account: this.account, info: false}});
+      },
+      toEmailFind: function() {
+        this.$router.push({ path: '/forget/email', query: {account: this.account}});
+      },
+      toPhoneFind: function() {
+        this.$router.push({ path: '/forget/phone', query: {account: this.account}});
+      },
+      toQuestionFind: function() {
+        this.$router.push({ path: '/forget/question', query: {account: this.account}});
       }
     }
   }

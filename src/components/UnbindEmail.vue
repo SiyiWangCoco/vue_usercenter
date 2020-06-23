@@ -7,12 +7,12 @@
     <div class="inputBoxes">
       <input type="text" class="userInput" id="oldEmail" :placeholder="oldEmail">
       <div class="verification">
-        <input type="text" class="userInput" id="verificationEnter" placeholder="邮箱验证码">
+        <input type="text" class="userInput" id="verificationEnter" placeholder="邮箱验证码" v-model="code">
         <input type="button" id="verificationSend" value="发送验证码" @click="emailCode">
         <div class="verticleLine"></div>
       </div>
       <div class="verification">
-        <input type="text" class="userInput" id="verificationText" placeholder="图片验证码">
+        <input type="text" class="userInput" id="verificationText" placeholder="图片验证码" v-model="image_code">
         <img id="verificationCode" src="../assets/verificationCode.png" @click="imageCode">
       </div>
       <input type="button" class="submitButton" id="submit" value="提交" @click="unbindEmail">
@@ -56,8 +56,6 @@
         $("#verificationCode").attr("src", "/api/VerificationCode/img");
       },
       unbindEmail: function() {
-        this.code = document.getElementById("verificationEnter").value;
-        this.image_code = document.getElementById("verificationText").value;
         if (this.image_code.length == 0) { //未输入图片验证码
           alert("请输入图片验证码");
           return;

@@ -5,9 +5,9 @@
       <div class="describe">请填写您的邮箱地址和验证码</div>
     </div>
     <div class="inputBoxes">
-      <input type="text" class="userInput" id="userEmail" placeholder="请填写您的电子邮箱">
+      <input type="text" class="userInput" id="userEmail" placeholder="请填写您的电子邮箱" v-model="email">
       <div class="verification">
-        <input type="text" class="userInput" id="verificationEnter" placeholder="请输入验证码">
+        <input type="text" class="userInput" id="verificationEnter" placeholder="请输入验证码" v-model="code">
         <input type="button" id="verificationSend" value="发送验证码" @click="emailCode">
         <div class="verticleLine"></div>
       </div>
@@ -29,7 +29,6 @@
     },
     methods: {
       emailCode: function() { //获取邮箱号码(绑定邮箱)
-        this.email = document.getElementById("userEmail").value;
         let mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
         if (mailReg.test(this.email) == false) { //输入为非法邮箱号
           alert("请输入正确的电子邮箱")
@@ -43,8 +42,6 @@
         }
       },
       bindEmail: function() {
-        this.email = document.getElementById("userEmail").value;
-        this.code = document.getElementById("verificationEnter").value;
         if (this.email.length == 0) { //未输入邮箱
           alert("请输入您的电子邮箱");
           return;

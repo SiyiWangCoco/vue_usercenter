@@ -5,8 +5,8 @@
       <div class="describe">请如实填写您的姓名和身份证号</div>
     </div>
     <a class="inputBoxes">
-      <input type="text" class="userInput" id="realName" placeholder="请填入您的真实姓名">
-      <input type="text" class="userInput" id="identityNum" placeholder="请填写您的身份证号码">
+      <input type="text" class="userInput" id="realName" placeholder="请填入您的真实姓名" v-model="real_name">
+      <input type="text" class="userInput" id="identityNum" placeholder="请填写您的身份证号码" v-model="card_id">
       <input type="button" class="submitButton" id="submit" value="提交" @click="idTest">
     </a>
   </div>
@@ -23,8 +23,6 @@
     },
     methods: {
       idTest: function() {
-        this.real_name = document.getElementById("realName");
-        this.card_id = document.getElementById("identityNum");
         if (this.real_name.length == 0) { //未输入真实姓名
           alert("请输入您的姓名");
           return;

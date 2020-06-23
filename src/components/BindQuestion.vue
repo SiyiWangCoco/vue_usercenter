@@ -8,13 +8,13 @@
       <div class="verification">
         <img class="questionIcon" src="../assets/question.png">
         <select type="text" id="question">
-          <option selected="selected" value="-1">请选择您设置的密保问题</option>
+          <option selected="selected" value="-1" v-model="question">请选择您设置的密保问题</option>
           <option v-for="(question, i) in questionList" :value="question.question">{{question.question}}</option>
 
         </select>
       </div>
-      <input type="text" class="userInput" id="answer" placeholder="请输入您的密保答案">
-      <input type="text" class="userInput" id="answerAgain" placeholder="请再次输入您的密保答案">
+      <input type="text" class="userInput" id="answer" placeholder="请输入您的密保答案" v-model="answer">
+      <input type="text" class="userInput" id="answerAgain" placeholder="请再次输入您的密保答案" v-model="confirm_answer">
       <div>
         <input type="button" class="submitButton" id="submit" value="提交" @click="bindQuestion">
       </div>
@@ -46,9 +46,6 @@
         }
       },
       bindQuestion: function() {
-        this.question = document.getElementById("question").value;
-        this.answer = document.getElementById("answer").value;
-        this.confirm_answer = document.getElementById("answerAgain").value;
         if (this.question == "-1") {
           alert("请选择您设置的密保问题");
           return;
