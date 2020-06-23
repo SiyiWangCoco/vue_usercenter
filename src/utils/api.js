@@ -19,8 +19,30 @@ const Post = (api, postData) => {
       } else if (api == '/api/web/index/modifyPassword' || api == '/api/web/basic/getPassword') {
         window.location.href = '#/login';
         return;
+      } else if ( api == '/api/web/index/modifyUser') {
+        location.reload();
+        return;
       }
       window.location.href = '#/user/info';
+    } else { // 请求失败code和信息
+      alert(res.data.code + ": " + res.data.msg);
+    }
+  }).catch(function(error) {
+    alert(error);
+  });
+}
+
+const imagePost = (api, postData, func) => {
+  axios.post(api, postData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      'token': token
+    }
+  }).then((res) => {
+    console.log(res)
+    if (res.data.code == 0) {
+      alert('success')
+      func(res.data.data)
     } else { // 请求失败code和信息
       alert(res.data.code + ": " + res.data.msg);
     }
@@ -61,6 +83,7 @@ const simpleGet = (api, getData) => {
 
 let modules = {
   Post,
+  imagePost,
   Get,
   simpleGet
 }

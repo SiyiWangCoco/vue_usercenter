@@ -59,44 +59,24 @@
             alert("请输入正确的邮箱");
             return;
           }
-          this.passwordTest();
+          this.passwordPost();
         }
       },
-      passwordTest: function() {
-        if (this.password.length == 0) { //未输入新密码
-          alert("请输入您的新密码");
-          return;
-        } else if (this.passwordAgain.length == 0) { //未再次输入新密码
-          alert("请再次输入您的新密码");
-          return;
-        } else if (this.password != this.passwordAgain) { //新密码不一致
-          alert("再次输入密码不一致请重新输入您的新密码");
-          return;
-        } else {
-          var regLetter = /[A-Za-z]/;
-          var regNum = /[0-9]/;
-          var regTeShu = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？+-]");
-          if (this.password.length < 6 || this.password.length > 16) { //密码位数不对
-            alert("您设置的密码应在6-16位");
-            return;
-          } else if ((regLetter.test(this.password) == false) && (regNum.test(this.password == false))) { //至少包含一个数字或字母
-            alert("您设置的密码应至少包含一个数字或字母");
-            return;
-          } else if (regTeShu.test(this.password)) { //不包含特殊字符
-            alert("您设置的密码应不包含特殊字符");
-            return;
-          }
-          let postData = {
-            account: this.account,
-            password: this.password,
-            confirm_password: this.passwordAgain,
-            email: this.email,
-            code: this.code,
-            language: "zh"
-          }
-          this.api.Post('/api/web/basic/getPassword', postData);
-        }
-      }
+      passwordPost: function() {
+       if (this.$passwordTest(this.password, this.passwordAgain)) {
+           let postData = {
+             account: this.account,
+             password: this.password,
+             confirm_password: this.passwordAgain,
+             email: this.email,
+             code: this.code,
+             language: "zh"
+           }
+           this.api.Post('/api/web/basic/getPassword', postData);
+           return;
+         }
+         console.log('password test failed');
+       }
     }
   }
 </script>

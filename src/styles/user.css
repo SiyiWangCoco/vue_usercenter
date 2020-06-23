@@ -261,8 +261,13 @@
 }
 
 #birthday {
-  opacity: 0.3;
   letter-spacing: 0px;
+  color: #000000;
+}
+
+#noBirth {
+  border: none;
+  background: transparent;
 }
 
 #area {
