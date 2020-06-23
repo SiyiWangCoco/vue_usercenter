@@ -16,7 +16,7 @@ const Post = (api, postData) => {
         token = res.data.data.user_token;
       } else if (api == '/api/web/basic/sendEmailCode' || api == '/api/web/basic/sendMessageCode') {
         return;
-      } else if (api == '/api/web/index/modifyPassword' || api == '/api/web/basic/getPassword') {
+      } else if (api == '/api/web/index/modifyPassword' || api == '/api/web/basic/getPassword' || api == '/api/web/basic/reg') {
         window.location.href = '#/login';
         return;
       } else if ( api == '/api/web/index/modifyUser') {
