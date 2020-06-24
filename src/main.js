@@ -3,9 +3,20 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store'
 import $ from 'jquery'
 import api from './utils/api.js'
 import axios from 'axios'
+
+import DatetimePicker from 'vant/lib/datetime-picker';
+import 'vant/lib/datetime-picker/style';
+import Popup from 'vant/lib/popup';
+import 'vant/lib/popup/style';
+import Picker from 'vant/lib/picker';
+import 'vant/lib/picker/style';
+Vue.use(DatetimePicker);
+Vue.use(Popup);
+Vue.use(Picker);
 
 Vue.config.productionTip = false
 
@@ -44,6 +55,7 @@ Vue.prototype.$passwordTest = function(passwordA, passwordB) {
 new Vue({
   el: '#app',
   router,
+  store,
   components: {
     App
   },

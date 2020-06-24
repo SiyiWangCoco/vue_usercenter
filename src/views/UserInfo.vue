@@ -68,7 +68,9 @@
           </a>
         </div>
         <div class="whitleLink" id="infoCenterTitle">
-          充值中心
+			    <div style="margin-left: 5vw;">
+				    充值中心
+			    </div>
         </div>
         <div class="whitleLink">
           <div class="detailIcons"><img src="../assets/chargingColoredIcon.png"></div>
@@ -85,7 +87,9 @@
           </a>
         </div>
         <div class="whitleLink" id="infoCenterTitle">
-          客服中心
+			    <div style="margin-left: 5vw;">
+				    客服中心
+			    </div>
         </div>
         <div class="whitleLink">
           <div class="detailIcons"><img src="../assets/serviceColoredIcon.png"></div>

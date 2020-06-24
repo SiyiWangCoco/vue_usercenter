@@ -35,7 +35,7 @@
       </div>
       <div v-show="cover" id="cover"></div>
       <div id="creditDataBox">
-        <creditData v-for='(r,i) in recordList' :gameId='r.game_id' :regionId='r.region_id' :rName='r.rule_name' :rTime='r.created_at' :rAmount='r.amount' :code ='r.charge_code'></creditData>
+        <creditData v-for='r in recordList' :key='r.id' :gameId='r.game_id' :regionId='r.region_id' :rName='r.rule_name' :rTime='r.created_at' :rAmount='r.amount' :code ='r.charge_code'></creditData>
       </div>
     </div>
   </div>

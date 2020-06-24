@@ -20,62 +20,73 @@
         </div>
         <div class="whitleLine">
           <div class="details2">昵称</div>
-          <input type="text" class="rightArrow" id="nickName" v-model="nick">
+          <input type="text" :class="[class1, nickColor]" id="nickName" v-model="nick">
         </div>
         <div class="whitleLine">
           <div class="details2">性别</div>
-          <select class="rightArrow" id="sex" v-model="sex">
-            <option value="0">未知</option>
-            <option value="1">男</option>
-            <option value="2">女</option>
-          </select>
+          <button :class="[class1, birthColor]" id="sex" is-link @click="showSex"> {{curSex}} </button>
         </div>
         <div class="whitleLine">
           <div class="details2">生日</div>
-          <button class="rightArrow" v-if="birthday == false" @click="setBirth" id="noBirth"> 未设置 </button>
-          <birthday-picker v-else-if="birthday == true" :myYear='myYear' :myMonth='myMonth' :myDay='myDay' @newBirth="newBirth">
-          </birthday-picker>
+          <button :class="[class1, birthColor]" id="noBirth" is-link @click="showBirth"> {{birthday}} </button>
         </div>
         <div class="whitleLine">
           <div class="details2">所在地区</div>
-          <input type="text" class="rightArrow" placeholder="未填写" v-model="area">
+          <input type="text" :class="[class1, areaColor]" placeholder="未填写" v-model="area">
         </div>
         <div id="submitBox">
           <button id="submit" @click="changeInfo"> 提交</button>
         </div>
       </div>
+      <div class="addtion">
+        <van-popup v-model="show0" position="bottom" :style="{ height: '44%' }">
+          <van-picker title="选择性别" show-toolbar :columns="columns"  />
+        </van-popup>
+        <van-popup v-model="show1" position="bottom" :style="{ height: '44%' }" @close="close" @open="open">
+          <van-datetime-picker v-model="currentDate" type="date" title="选择生日" :min-date="minDate" :max-date="maxDate"
+            @confirm="setBirth(currentDate)" @cancel="cancel" />
+        </van-popup>
+      </div>
+
     </div>
   </div>
 </template>
 
 <script>
-  import BirthdayPicker from "../components/BirthdayPicker.vue";
   export default {
     name: 'edit',
     data() {
       return {
-        birthday: false,
+        class1: 'rightArrow',
+        nickColor: 'black',
+        birthColor: 'grey',
+        areaColor: 'grey',
+        columns: ['男', '女'],
+        show0:false,
+        show1: false,
+        minDate: new Date(1915, 0, 1),
+        maxDate: new Date(),
+        currentDate: new Date(),
+        birthday: '未设置',
         userName: '',
         nick: '',
         userNumber: '',
         logo: '../assets/people_fill.png',
         sex: 0, // 用户信息里没有该信息
+        curSex: '未知',
         area: '未填写',
-        myYear: '',
-        myMonth: '',
-        myDay: '',
-        newBirthDay: ''
+        confirmed: false
       }
-    },
-    components: {
-      'birthday-picker': BirthdayPicker
     },
     mounted: function() {
       this.api.Get('/api/web/index/getUserBasicInfo', this.setInfo);
     },
     methods: {
-      setBirth: function() {
-        this.birthday = true;
+      showBirth: function() {
+        this.show1 = true;
+      },
+      showSex: function() {
+        this.show0 = true;
       },
       setInfo: function(data) {
         this.userNumber = data.nick_id; //id
@@ -90,19 +101,10 @@
         }
 
         if (data.birthday != null) { //生日
-          this.setBirth();
+          this.birthColor = 'black';
+          this.birthday = data.birthday;
           let date = data.birthday.split("-");
-          this.myYear = date[0];
-          if (date[1].substr(0, 1) == 0) {
-            this.myMonth = date[1].substr(1, 1);
-          } else {
-            this.myMonth = date[1]
-          }
-          if (date[2].substr(0, 1) == 0) {
-            this.myDay = date[2].substr(1, 1);
-          } else {
-            this.myDay = date[2];
-          }
+          this.currentDate = new Date(date[0], date[1] - 1, date[2]);
         }
       },
       uploadLogo: function() {
@@ -119,13 +121,39 @@
       showLogo: function(data) {
         this.logo = data.file;
       },
-      newBirth: function(child) {
-        this.newBirthDay = child;
+      open: function() {
+        this.confirmed = false;
+      },
+      close: function() {
+        if (this.confirmed == false) {
+          let date = this.birthday.split("-");
+          this.currentDate = new Date(date[0], date[1] - 1, date[2]);
+        }
+      },
+      cancel: function() {
+        this.confirmed = false;
+        this.show1 = false;
+      },
+      setBirth: function(date) {
+        this.confirmed = true;
+        this.show1 = false;
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let ym = '-';
+        let md = '-';
+        if (month < 10) {
+          ym = '-0';
+        }
+        if (day < 10) {
+          md = '-0';
+        }
+        this.birthday = year + ym + month + md + day;
       },
       changeInfo: function() {
         let postData = {
           logo: this.logo,
-          birthday: this.newBirthDay,
+          birthday: this.birthday,
           sex: 2, // this.sex,
           nick: this.nick
         }
@@ -138,4 +166,13 @@
 
 <style scoped>
   @import "./../styles/user.css";
+
+  .grey {
+    color: grey;
+  }
+
+  .black {
+    color: black;
+    font-weight: bold;
+  }
 </style>

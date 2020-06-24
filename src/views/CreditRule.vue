@@ -17,7 +17,7 @@
         </div>
       </div>
       <div id="creditPackageBoxes">
-        <sigleRule v-for='(r,i) in rules' :rId='r.id' :rName='r.name' :rDes='r.description' :rAmount='r.amount' :rLogo='r.logo'
+        <sigleRule v-for='(r,i) in rules' :key='r.id' :rId='r.id' :rName='r.name' :rDes='r.description' :rAmount='r.amount' :rLogo='r.logo'
           @ruleId="toConfirm"></sigleRule>
       </div>
     </div>

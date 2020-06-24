@@ -66,6 +66,7 @@
 
 #userIcon {
   height: 19vw;
+  border-radius: 100%;
 }
 
 #useridNum {
@@ -196,7 +197,7 @@
 
 #infoCenterTitle {
   font-size: 4vw;
-  padding-left: 5vw;
+
   border-bottom: 1px solid rgba(51,51,51,0.1);
   border-top: 1px solid rgba(51,51,51,0.1);
   color: #b4b4b4;
@@ -222,10 +223,17 @@
  margin-top:12vw ;
 }
 
+#sex {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  }
+
 #peopleFill {
   margin-top: -7vw;
   margin-right: -2vw;
   height: 15vw;
+  border-radius: 100%;
  }
 
 .whitleLine {
