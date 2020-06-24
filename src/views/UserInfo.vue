@@ -62,7 +62,7 @@
         </div>
         <div class="whitleLink">
           <div class="detailIcons"><img src="../assets/thirdColoredIcon.png"></div>
-          <a class="noUnderLine" href="#/user/thirdParty">
+          <a class="noUnderLine" href="#/user/third-party">
             <div class="details">第三方账号绑定</div>
             <div class="rightArrow"><img src="../assets/rightArrow.png"></div>
           </a>

@@ -18,9 +18,9 @@
       <hr id="hr2">
     </div>
     <div class="loginIcons">
-      <a id="qq"></a>
-      <a id="wechat"></a>
-      <a id="weibo"></a>
+      <a id="qq" :href="qq"></a>
+      <a id="wechat" :href="wechat"></a>
+      <a id="weibo" :href="weibo"></a>
     </div>
   </div>
 </template>
@@ -38,8 +38,14 @@
         account: '',
         email: '',
         password: '',
-        userid: ''
+        userid: '',
+        qq:'',
+        wechat:'',
+        weibo:''
       }
+    },
+    mounted: function() {
+      this.api.Get('/api/web/basic/chargeBaseData', this.setThirdparty);
     },
     methods: {
       login: function() { // 登录事件
@@ -87,6 +93,10 @@
         } else {
           this.$router.push({name:'find',query:{account: this.userid}});
         }
+      },
+      setThirdparty: function(data){ // 只有facebook和google， 没有qq微信微博
+        this.qq = '/api' + data.base_configs.third_login_url.facebook;
+        this.wechat = '/api' +  data.base_configs.third_login_url.google;
       }
     }
   }

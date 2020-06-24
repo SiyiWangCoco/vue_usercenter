@@ -173,7 +173,7 @@
 }
 
 .inputBoxesForThird div{
-  margin-top: 50px;
+  margin-top: 7vw;
 }
 
 .inputBoxesForThird input{
@@ -187,6 +187,7 @@
   text-align: right;
   margin-left: 20px;
   float: right;
+  outline: none;
 }
 
 .inputBoxesForThird img{

@@ -7,7 +7,7 @@ const Post = (api, postData) => {
       'token': token
     }
   }).then((res) => {
-    console.log(res)
+   // console.log(res)
     if (res.data.code == 0) {
       alert('success')
       if (api == '/api/web/basic/login') {
@@ -39,7 +39,7 @@ const imagePost = (api, postData, func) => {
       'token': token
     }
   }).then((res) => {
-    console.log(res)
+    //console.log(res)
     if (res.data.code == 0) {
       alert('success')
       func(res.data.data)
@@ -59,7 +59,7 @@ const Get = (api, func) => {
       'token': token
     }
   }).then(res => {
-    console.log(res.data);
+  //  console.log(res.data);
     func(res.data.data);
   }, res => {
     if (api != '/api/VerificationCode/img') { //图片二维码刷新，500过期
