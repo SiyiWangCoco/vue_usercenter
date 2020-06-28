@@ -15,7 +15,7 @@
             <img id="userIcon" :src='logo'>
           </div>
           <div id="useridNum">
-            <p><span id="useridName">{{nick}}</span><span id="useridNumber">{{nick_id}}</span></p>
+            <p><span id="useridName">{{getNick}}</span><span id="useridNumber"># {{nick_id}}</span></p>
             <p id="useridPhone">{{phone}}</p>
           </div>
         </div>
@@ -23,14 +23,14 @@
       <div id="userDetails">
         <div class="whitleLink">
           <div class="detailIcons"><img src="../assets/passwordColoredIcon.png"></div>
-          <a class="underLine"  @click="toPassword">
+          <a class="underLine" @click="toPassword">
             <div class="details">密码设置</div>
             <div class="rightArrow"><img src="../assets/rightArrow.png"></div>
           </a>
         </div>
         <div class="whitleLink">
           <div class="detailIconss"><img src="../assets/identityColoredIcon.png"></div>
-          <a class="underLine"  @click="toIdentity">
+          <a class="underLine" @click="toIdentity">
             <div class="details">实名认证</div>
             <div class="rightArrow"><img src="../assets/rightArrow.png"></div>
             <div class="detailInfo" id="realName">{{real_name}}</div>
@@ -57,7 +57,7 @@
           <a class="underLine" @click="toQuestion">
             <div class="details">密保问题</div>
             <div class="rightArrow"><img src="../assets/rightArrow.png"></div>
-            <div class="detailInfo" id="question">{{question}}</div>
+            <div class="detailInfo" id="question">{{getQuestion}}</div>
           </a>
         </div>
         <div class="whitleLink">
@@ -68,9 +68,9 @@
           </a>
         </div>
         <div class="whitleLink" id="infoCenterTitle">
-			    <div style="margin-left: 5vw;">
-				    充值中心
-			    </div>
+          <div style="margin-left: 5vw;">
+            充值中心
+          </div>
         </div>
         <div class="whitleLink">
           <div class="detailIcons"><img src="../assets/chargingColoredIcon.png"></div>
@@ -87,9 +87,9 @@
           </a>
         </div>
         <div class="whitleLink" id="infoCenterTitle">
-			    <div style="margin-left: 5vw;">
-				    客服中心
-			    </div>
+          <div style="margin-left: 5vw;">
+            客服中心
+          </div>
         </div>
         <div class="whitleLink">
           <div class="detailIcons"><img src="../assets/serviceColoredIcon.png"></div>
@@ -101,7 +101,7 @@
         </div>
         <div class="whitleLink">
           <div class="detailIcons"><img src="../assets/appealColoredIcon.png"></div>
-          <a class="underLine"  @click="toAppeal">
+          <a class="underLine" @click="toAppeal">
             <div class="details">账号申诉</div>
             <div class="rightArrow"><img src="../assets/rightArrow.png"></div>
           </a>
@@ -114,91 +114,76 @@
 </template>
 
 <script>
+  import { mapState, mapMutations, mapGetters } from 'vuex';
+
   export default {
     name: 'info',
     data() {
-      return {
-        logo: '../assets/userColoredIcon.png',
-        nick: '',
-        nick_id:'',
-        phone:'未设置',
-        email:'未设置',
-        real_name:'未设置',
-        question: '未设置',
-        user: {}
-      }
+      return {}
+    },
+    computed: {
+      ...mapState({
+        logo: (state) => state.user.logo,
+        nick_id: (state) => state.user.nick_id,
+        phone: (state) => state.user.phone,
+        email: (state) => state.user.email,
+        real_name: (state) => state.user.real_name,
+        card_id: (state) => state.user.card_id,
+        security_question: (state) => state.user.security_question,
+        password_level: (state) => state.user.password_level
+      }),
+      ...mapGetters({
+        'getNick': 'getNick',
+        'getQuestion': 'getQuestion',
+      }),
     },
     mounted: function() {
-        this.api.Get('/api/web/index/getUserBasicInfo', this.setInfo);
-      },
+      this.api.Get('/api/web/index/getUserBasicInfo', this.setUserInfo);
+    },
     methods: {
-      setInfo: function(data) {
-        this.user = data;
-        //标题区
-        this.nick_id = "#" + data.nick_id; //id
-        if (data.logo.length != 0) { //头像
-          this.logo = data.logo;
-        }
-        if (data.nick.length != 0) { //用户名
-          this.nick = data.nick;
-        } else if (data.nick.length == 0 && data.account.length != 0) {
-          this.nick = data.account;
-        }
-        //信息区
-        if (data.real_name.length != 0) { //实名
-          this.real_name = data.real_name;
-        }
-        if (data.phone.length != 0) { //手机号
-          this.phone = data.phone;
-        }
-        if (data.email.length != 0) { //邮箱
-          this.email = data.email;
-        }
-        if (data.security_question != null) { //密保
-          if (data.security_question.length >= 8) {
-            this.question = data.security_question.substr(0, 8) + "...";
-          } else {
-            this.question = data.security_question;
-          }
-        }
-      },
+      ...mapMutations({
+        setUserInfo(commit, data) {
+          commit("setUserInfo", data)
+        },
+      }),
       toPassword: function() {
-        if (this.user.password_level > 0) {
-          this.$router.push({name:'password',params:{has:true}});
+        if (this.password_level > 0) {
+          this.$router.push({ name: 'password', params: {has: true}});
         } else {
-          this.$router.push({name:'password',params:{has:false}});
+          this.$router.push({ name: 'password', params: {has: false}});
         }
       },
       toIdentity: function() {
-        if (this.user.real_name.length != 0) {
-          this.$router.push({name:'identity',params:{has:true}});
+        if (this.card_id.length != 0) {
+          this.$router.push({ name: 'identity', params: {has: true}});
         } else {
-          this.$router.push({name:'identity',params:{has:false}});
+          this.$router.push({  name: 'identity', params: {has: false}});
         }
       },
       toPhone: function() {
-        if (this.user.phone.length != 0) {
-          this.$router.push({name:'phone',params:{has:true}});
+        if (isNaN(parseInt(this.phone))) {
+          this.$router.push({ name: 'phone', params: {has: false}});
         } else {
-          this.$router.push({name:'phone',params:{has:false}});
+          this.$router.push({ name: 'phone',  params: {has: true}});
         }
       },
       toEmail: function() {
-        if (this.user.email.length != 0) {
-          this.$router.push({name:'email',params:{has:true}});
+        let mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+        if (mailReg.test(this.email)) {
+          this.$router.push({ name: 'email', params: {has: true}});
         } else {
-          this.$router.push({name:'email',params:{has:false}});
+          this.$router.push({name: 'email', params: {has: false}});
         }
       },
       toQuestion: function() {
-        if (this.user.security_question != null) {
-          this.$router.push({name:'question',params:{has:true}});
+        if (this.security_question != null) {
+          this.$router.push({ name: 'question', params: {has: true}});
         } else {
-          this.$router.push({name:'question',params:{has:false}});
+          this.$router.push({name: 'question', params: {has: false}});
         }
       },
       toAppeal: function() {
-        this.$router.push({name:'appeal',query:{info: true}});
+        this.$router.push({name: 'appeal', query: {info: true}});
       }
     }
   }

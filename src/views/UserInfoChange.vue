@@ -6,7 +6,7 @@
       </div>
       <div id="userTitle">
         <div id="useridNum">
-          <p><span id="userName">{{userName}}</span><span id="userNumber">#{{userNumber}}</span></p>
+          <p><span id="userName">{{getNick}}</span><span id="userNumber">#{{nick_id}}</span></p>
           <p id="userData">修改账号资料</p>
         </div>
       </div>
@@ -14,21 +14,21 @@
         <div class="whitleLine">
           <div class="details2">头像</div>
           <div class="rightArrow">
-            <img id="peopleFill" :src="logo" @click="uploadLogo">
+            <img id="peopleFill" :src="curLogo" @click="uploadLogo">
             <input type="file" id="photoFile" style="display: none;" v-on:change="upload($event)" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg">
           </div>
         </div>
         <div class="whitleLine">
           <div class="details2">昵称</div>
-          <input type="text" :class="[class1, nickColor]" id="nickName" v-model="nick">
+          <input type="text" :class="[class1, nickColor]" id="nickName" v-model="curNick">
         </div>
         <div class="whitleLine">
           <div class="details2">性别</div>
-          <button :class="[class1, birthColor]" id="sex" is-link @click="showSex"> {{curSex}} </button>
+          <button :class="[class1, birthColor]" id="sex" is-link @click="showSex"> {{getSex}} </button>
         </div>
         <div class="whitleLine">
           <div class="details2">生日</div>
-          <button :class="[class1, birthColor]" id="noBirth" is-link @click="showBirth"> {{birthday}} </button>
+          <button :class="[class1, birthColor]" id="noBirth" is-link @click="showBirth"> {{ curBirth}} </button>
         </div>
         <div class="whitleLine">
           <div class="details2">所在地区</div>
@@ -40,7 +40,7 @@
       </div>
       <div class="addtion">
         <van-popup v-model="show0" position="bottom" :style="{ height: '44%' }">
-          <van-picker title="选择性别" show-toolbar :columns="columns"  />
+          <van-picker title="选择性别" show-toolbar :columns="columns" />
         </van-popup>
         <van-popup v-model="show1" position="bottom" :style="{ height: '44%' }" @close="close" @open="open">
           <van-datetime-picker v-model="currentDate" type="date" title="选择生日" :min-date="minDate" :max-date="maxDate"
@@ -53,6 +53,8 @@
 </template>
 
 <script>
+  import { mapState, mapMutations, mapGetters } from 'vuex';
+
   export default {
     name: 'edit',
     data() {
@@ -62,24 +64,40 @@
         birthColor: 'grey',
         areaColor: 'grey',
         columns: ['男', '女'],
-        show0:false,
+        show0: false,
         show1: false,
         minDate: new Date(1915, 0, 1),
         maxDate: new Date(),
         currentDate: new Date(),
-        birthday: '未设置',
-        userName: '',
-        nick: '',
-        userNumber: '',
-        logo: '../assets/people_fill.png',
-        sex: 0, // 用户信息里没有该信息
-        curSex: '未知',
-        area: '未填写',
-        confirmed: false
+        confirmed: false,
+        curBirth: '',
+        curLogo:'',
+        curNick:''
       }
     },
-    mounted: function() {
-      this.api.Get('/api/web/index/getUserBasicInfo', this.setInfo);
+    computed: {
+      ...mapState({
+        logo: (state) => state.user.logo,
+        nick_id: (state) => state.user.nick_id,
+        birthday: (state) => state.user.birthday,
+        nick: (state) => state.user.nick,
+        sex: (state) => state.user.sex,
+        card_id: (state) => state.user.card_id,
+        area: (state) => state.user.area,
+      }),
+      ...mapGetters({
+        'getNick': 'getNick',
+        'getSex': 'getSex'
+      }),
+    },
+    mounted:function(){
+      this.curBirth = this.birthday;
+      this.curLogo = this.logo;
+      this.curNick = this.nick;
+      if (this.curBirth.length != 0) {
+        let date = this.curBirth.split("-");
+        this.currentDate = new Date(date[0], date[1] - 1, date[2]);
+      }
     },
     methods: {
       showBirth: function() {
@@ -87,25 +105,6 @@
       },
       showSex: function() {
         this.show0 = true;
-      },
-      setInfo: function(data) {
-        this.userNumber = data.nick_id; //id
-        if (data.logo.length != 0) { //头像
-          this.logo = data.logo;
-        }
-        if (data.nick.length != 0) { //用户名
-          this.userName = data.nick;
-          this.nick = data.nick;
-        } else if (data.nick.length == 0 && data.account.length != 0) {
-          this.userName = data.account;
-        }
-
-        if (data.birthday != null) { //生日
-          this.birthColor = 'black';
-          this.birthday = data.birthday;
-          let date = data.birthday.split("-");
-          this.currentDate = new Date(date[0], date[1] - 1, date[2]);
-        }
       },
       uploadLogo: function() {
         $("#photoFile").click();
@@ -116,17 +115,14 @@
         }
         let logo = new FormData();
         logo.append('file', e.currentTarget.files[0]);
-        this.api.imagePost('/api/web/index/uploadImage', logo, this.showLogo);
-      },
-      showLogo: function(data) {
-        this.logo = data.file;
+        this.api.imagePost('/api/web/index/uploadImage', logo, this.setLogo);
       },
       open: function() {
         this.confirmed = false;
       },
       close: function() {
         if (this.confirmed == false) {
-          let date = this.birthday.split("-");
+          let date = this.curBirth.split("-");
           this.currentDate = new Date(date[0], date[1] - 1, date[2]);
         }
       },
@@ -134,6 +130,10 @@
         this.confirmed = false;
         this.show1 = false;
       },
+      setLogo: function(data){
+        this.curLogo = data.file;
+      },
+
       setBirth: function(date) {
         this.confirmed = true;
         this.show1 = false;
@@ -148,19 +148,24 @@
         if (day < 10) {
           md = '-0';
         }
-        this.birthday = year + ym + month + md + day;
+        this.curBirth = year + ym + month + md + day;
       },
       changeInfo: function() {
         let postData = {
-          logo: this.logo,
-          birthday: this.birthday,
+          logo: this.curLogo,
+          birthday: this.curBirth,
           sex: 2, // this.sex,
-          nick: this.nick
+          nick: this.curNick
         }
         this.api.Post('/api/web/index/modifyUser', postData);
-      }
+        this.changeUserInfo(postData)
+      },
+      ...mapMutations({
+        changeUserInfo(commit, postData) {
+          commit("changeUserInfo", postData)
+        }
+      })
     }
-
   }
 </script>
 

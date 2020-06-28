@@ -18,14 +18,19 @@
       <hr id="hr2">
     </div>
     <div class="loginIcons">
-      <a id="qq" :href="qq"></a>
-      <a id="wechat" :href="wechat"></a>
+      <a id="qq"  :href="'/api'+ third_login_url.facebook"></a>
+      <a id="wechat" :href="'/api'+ third_login_url.google"></a>
       <a id="weibo" :href="weibo"></a>
     </div>
   </div>
 </template>
 
 <script>
+  import {
+    mapState,
+    mapMutations,
+    mapAction
+  } from 'vuex'
   export default {
     name: 'login',
     data() {
@@ -39,17 +44,21 @@
         email: '',
         password: '',
         userid: '',
-        qq:'',
-        wechat:'',
-        weibo:''
+        qq: '',
+        wechat: '',
+        weibo: ''
       }
     },
+    computed: {
+      ...mapState({
+        third_login_url: (state) => state.game.third_login_url // 只有facebook和google， 没有qq微信微博
+      })
+    },
     mounted: function() {
-      this.api.Get('/api/web/basic/chargeBaseData', this.setThirdparty);
+      this.api.Get('/api/web/basic/chargeBaseData', this.setGameInfo);
     },
     methods: {
       login: function() { // 登录事件
-
         if (this.userid.length == 0) { //  未输入账号
           alert('请输入账号/邮箱/手机号码');
           return;
@@ -91,13 +100,19 @@
           alert('请输入账号/邮箱/手机号码');
           return;
         } else {
-          this.$router.push({name:'find',query:{account: this.userid}});
+          this.$router.push({
+            name: 'find',
+            query: {
+              account: this.userid
+            }
+          });
         }
       },
-      setThirdparty: function(data){ // 只有facebook和google， 没有qq微信微博
-        this.qq = '/api' + data.base_configs.third_login_url.facebook;
-        this.wechat = '/api' +  data.base_configs.third_login_url.google;
-      }
+      ...mapMutations({
+        setGameInfo(commit, data) {
+          commit("setGameInfo", data)
+        },
+      })
     }
   }
 </script>

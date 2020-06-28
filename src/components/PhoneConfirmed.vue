@@ -28,7 +28,7 @@
       getPhone: function(data) { //  已有手机号读取手机信息
         if (data.phone.length == 0) {
           alert("您还没有绑定手机号");
-          noPhone();
+          this.noPhone();
         } else {
           this.phoneNum = data.phone;
         }

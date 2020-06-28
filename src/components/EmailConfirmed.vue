@@ -28,7 +28,7 @@
       getEmail: function(data) { //  已有邮箱读取邮箱信息
         if (data.email.length == 0) {
           alert("您还没有设置电子邮箱");
-          noEmail();
+          this.noEmail();
         } else {
           this.emailNum = data.email;
         }
