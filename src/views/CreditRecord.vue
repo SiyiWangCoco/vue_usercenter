@@ -228,7 +228,7 @@
         }
         if (record.next_page_url != null) {
           this.page++;
-          recordGet(this.page, record.data[0].game_id);
+          this.recordGet(this.page, record.data[0].game_id);
         }
       }
     }

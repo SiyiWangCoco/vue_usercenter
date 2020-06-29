@@ -14,6 +14,7 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex';
   export default {
     name: 'creditData',
     data() {
@@ -32,27 +33,27 @@
       rAmount: Number,
       code: String
     },
-    mounted: function() {
-      this.api.Get('/api/web/basic/chargeBaseData', this.setRecordBox);
+    computed: {
+      ...mapState({
+        games: (state) => state.game.games,
+      })
     },
-    methods: {
-      setRecordBox: function(data) {
-        for (let i = 0; i < data.games.length; i++) { //  游戏区服： 对应游戏名和区名
-          if (data.games[i].id == this.gameId) {
-            this.gameName = data.games[i].name.zh;
-            for (let j = 0; j < data.games[i].regions.length; j++) {
-              if (data.games[i].regions[j].id == this.regionId) { // regions
-                this.regionName = data.games[i].regions[j].name;
-                break;
-              }
+    mounted: function() {
+      for (let i = 0; i < this.games.length; i++) { //  游戏区服： 对应游戏名和区名
+        if (this.games[i].id == this.gameId) {
+          this.gameName = this.games[i].name.zh;
+          for (let j = 0; j < this.games[i].regions.length; j++) {
+            if (this.games[i].regions[j].id == this.regionId) { // regions
+              this.regionName = this.games[i].regions[j].name;
+              break;
             }
-            break;
           }
+          break;
         }
-        this.rDay = this.rTime.split(' ')[0];
-        if (this.code.length != 0) {
-          this.yes = true;
-        }
+      }
+      this.rDay = this.rTime.split(' ')[0];
+      if (this.code.length != 0) {
+        this.yes = true;
       }
     }
 

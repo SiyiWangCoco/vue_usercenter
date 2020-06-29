@@ -56,7 +56,7 @@
 }
 
 #selectBoxes {
-	font-size: 0px;
+	font-size: 3.5vw;
 }
 
 .selected {
@@ -169,4 +169,11 @@
   background-color: rgba(60,60,60,0.3);
   height: 100%;
   width: 100%;
+}
+
+#currentTime {
+  color: #000000;
+}
+#currentGame {
+  color: #000000;
 }
