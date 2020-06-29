@@ -20,26 +20,42 @@
     <div class="otherFunc" id="loginPageBox">
       <a href="./appeal.html" id="loginPage">手机已不使用？点此申诉</a>
     </div>
-  </div>
+    <div id="addition">
+      <van-popup v-model="res" class="pop">
+        <success :alretMsg='alretMsg' @yes="noChange"></success>
+      </van-popup>
+      <van-popup v-model="res1" class="pop">
+        <success :alretMsg='alretMsgBind':option='option' @yes="toInfo"></success>
+      </van-popup>
+    </div>
   </div>
 </template>
 
 <script>
   import md5 from 'js-md5';
   import {mapState, mapMutations} from 'vuex';
+  import SuccessAlert from "../components/SuccessAlert.vue";
   export default {
     name: 'phoneC',
     data() {
       return {
         code: '',
         image_code: '',
-        key: "wizard-member-client-message-code"
+        key: "wizard-member-client-message-code",
+        res: false,
+        res1:false,
+        alretMsg: '验证码发送',
+        alretMsgBind: '手机解绑',
+        option: '主页'
       }
     },
     computed: {
       ...mapState({
         phone: (state) => state.user.phone
       })
+    },
+    components: {
+      'success': SuccessAlert
     },
     mounted: function() {
       this.api.Get("/api/VerificationCode/img", this.refreshCode);
@@ -52,7 +68,15 @@
           language: "zh",
           sign: md5(this.phone + "|unbind|zh|" + this.key)
         }
-        this.api.simplePost('/api/web/basic/sendMessageCode', postData);
+        this.api.simplePost('/api/web/basic/sendMessageCode', postData, this.success);
+      },
+      success: function() {
+        this.res = true;
+      },
+      noChange: function(child) {
+        if(child) {
+          this.res = false;
+        }
       },
       imageCode: function() {
         this.api.Get("/api/VerificationCode/img", this.refreshCode);
@@ -81,8 +105,14 @@
           this.api.Post('/api/web/index/unBindMobilePhone', postData, this.unbindUserPhone);
         }
       },
+      toInfo: function(child) {
+        if (child) {
+          this.$router.push({ name: 'info'});
+        }
+      },
       ...mapMutations({
         unbindUserPhone(commit, postData) {
+          this.res1 = true;
           commit("unbindUserPhone", postData);
         }
       })

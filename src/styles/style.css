@@ -568,3 +568,10 @@
   background-color: rgb(255,255,255);
   color: #c72729;
 }
+
+.pop {
+    height: 50%;
+    width: 90%;
+    background-color: #1c1c1c;
+    text-align: center;
+  }

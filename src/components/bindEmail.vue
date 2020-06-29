@@ -15,18 +15,35 @@
         <input type="button" class="submitButton" id="submit" value="提交" @click="bindEmail">
       </div>
     </div>
+    <div id="addition">
+      <van-popup v-model="res" class="pop">
+        <success :alretMsg='alretMsg' @yes="noChange"></success>
+      </van-popup>
+      <van-popup v-model="res1" class="pop">
+        <success :alretMsg='alretMsgBind':option='option' @yes="toInfo"></success>
+      </van-popup>
+    </div>
   </div>
 </template>
 
 <script>
   import {mapMutations} from 'vuex';
+  import SuccessAlert from "../components/SuccessAlert.vue";
   export default {
     name: 'email-0',
     data() {
       return {
         email: '',
-        code: ''
+        code: '',
+        res: false,
+        res1:false,
+        alretMsg: '验证码发送',
+        alretMsgBind: '邮箱绑定',
+        option: '主页'
       }
+    },
+    components: {
+      'success': SuccessAlert
     },
     methods: {
       emailCode: function() { //获取邮箱号码(绑定邮箱)
@@ -39,7 +56,15 @@
             type: 'bind',
             language: "zh"
           }
-          this.api.simplePost('/api/web/basic/sendEmailCode', postData);
+          this.api.simplePost('/api/web/basic/sendEmailCode', postData, this.success);
+        }
+      },
+      success: function() {
+        this.res = true;
+      },
+      noChange: function(child) {
+        if(child) {
+          this.res = false;
         }
       },
       bindEmail: function() {
@@ -68,8 +93,14 @@
           }
         }
       },
+      toInfo: function(child) {
+        if (child) {
+          this.$router.push({ name: 'info'});
+        }
+      },
       ...mapMutations({
         changeUserEmail(commit, postData) {
+          this.res1 = true;
           commit("changeUserEmail", postData)
         }
       })

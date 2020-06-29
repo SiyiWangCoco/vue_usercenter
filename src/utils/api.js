@@ -9,13 +9,13 @@ const Post = (api, postData, func) => {
   }).then((res) => {
     // console.log(res)
     if (res.data.code == 0) {
-      alert('success')
+      //alert('success')
       func(postData)
       if  (api == '/api/web/index/modifyUser') {
         location.reload();
         return;
       }
-      window.location.href = '#/user/info';
+     // window.location.href = '#/user/info';
     } else { // 请求失败code和信息
       alert(res.data.code + ": " + res.data.msg);
     }
@@ -24,7 +24,7 @@ const Post = (api, postData, func) => {
   });
 }
 
-const simplePost = (api, postData) => {
+const simplePost = (api, postData, func) => {
   axios.post(api, postData, {
     headers: {
       'token': token
@@ -32,14 +32,8 @@ const simplePost = (api, postData) => {
   }).then((res) => {
     // console.log(res)
     if (res.data.code == 0) {
-      alert('success')
-      if (api == '/api/web/basic/sendEmailCode' || api == '/api/web/basic/sendMessageCode') {
-        return;
-      } else if (api == '/api/web/index/modifyPassword' || api == '/api/web/basic/getPassword' || api ==
-        '/api/web/basic/reg') {
-        window.location.href = '#/login';
-        return;
-      }
+      //alert('success')
+      func();
     } else { // 请求失败code和信息
       alert(res.data.code + ": " + res.data.msg);
     }

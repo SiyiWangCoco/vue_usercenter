@@ -19,12 +19,16 @@
       <van-popup v-model="show" position="bottom" :style="{ height: '44%' }"  @close="cancel" @open="open">
         <van-picker show-toolbar :columns="questions"  :defaultIndex="defaultIndex" @confirm="confirm" @cancel="cancel" ref="get" />
       </van-popup>
+      <van-popup v-model="res" class="pop">
+        <success :alretMsg='alretMsg':option='option' @yes="toInfo"></success>
+      </van-popup>
     </div>
   </div>
 </template>
 
 <script>
   import {mapState, mapMutations} from 'vuex';
+  import SuccessAlert from "../components/SuccessAlert.vue";
   export default {
     name: 'questionA',
     data() {
@@ -37,8 +41,14 @@
         question: '请选择您设置的密保问题',
         questions: [],
         jump_code_verify: 1,
+        res: false,
+        alretMsg: '密保设置',
+        option: '主页'
 
       }
+    },
+    components: {
+      'success': SuccessAlert
     },
     computed: {
       ...mapState({
@@ -92,8 +102,14 @@
           this.api.Post('/api/web/index/setSecurityQuestion', postData, this.changeUserQuestion);
         }
       },
+      toInfo: function(child) {
+        if (child) {
+          this.$router.push({ name: 'info'});
+        }
+      },
       ...mapMutations({
         changeUserQuestion(commit, postData) {
+          this.res = true;
           commit("changeUserQuestion", postData)
         }
       })

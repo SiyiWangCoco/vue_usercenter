@@ -20,23 +20,40 @@
     <div class="otherFunc" id="loginPageBox">
       <a href="#/appeal" id="loginPage">邮箱找不到？点此申诉</a>
     </div>
+    <div id="addition">
+      <van-popup v-model="res" class="pop">
+        <success :alretMsg='alretMsg' @yes="noChange"></success>
+      </van-popup>
+      <van-popup v-model="res1" class="pop">
+        <success :alretMsg='alretMsgBind':option='option' @yes="toInfo"></success>
+      </van-popup>
+    </div>
   </div>
 </template>
 
 <script>
   import {mapState, mapMutations} from 'vuex';
+  import SuccessAlert from "../components/SuccessAlert.vue";
   export default {
     name: 'emailC',
     data() {
       return {
         code: '',
-        image_code: ''
+        image_code: '',
+        res: false,
+        res1:false,
+        alretMsg: '验证码发送',
+        alretMsgBind: '邮箱解绑',
+        option: '主页'
       }
     },
     computed: {
       ...mapState({
         email: (state) => state.user.email
       })
+    },
+    components: {
+      'success': SuccessAlert
     },
     mounted: function() {
       this.api.Get("/api/VerificationCode/img", this.refreshCode);
@@ -48,7 +65,15 @@
           type: 'unbind',
           language: "zh"
         }
-        this.api.simplePost('/api/web/basic/sendEmailCode', postData);
+        this.api.simplePost('/api/web/basic/sendEmailCode', postData, this.success);
+      },
+      success: function() {
+        this.res = true;
+      },
+      noChange: function(child) {
+        if(child) {
+          this.res = false;
+        }
       },
       imageCode: function() {
         this.api.Get("/api/VerificationCode/img", this.refreshCode);
@@ -77,8 +102,14 @@
           this.api.Post('/api/web/index/unBindEmail', postData, this.unbindUserEmail);
         }
       },
+      toInfo: function(child) {
+        if (child) {
+          this.$router.push({ name: 'info'});
+        }
+      },
       ...mapMutations({
         unbindUserEmail(commit, postData) {
+          this.res1 = true;
           commit("unbindUserEmail", postData);
         }
       })

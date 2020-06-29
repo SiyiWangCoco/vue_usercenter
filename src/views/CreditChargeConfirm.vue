@@ -38,12 +38,18 @@
       </div>
       <button id="pay" @click="pay">立即支付</button>
     </div>
+    <div id="addition">
+      <van-popup v-model="res" :class="pop">
+        <success :alretMsg='alretMsg' :option='option' :pay='true' @yes="toInfo"></success>
+      </van-popup>
+    </div>
   </div>
 </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import SuccessAlert from "../components/SuccessAlert.vue";
 export default {
   name: 'pay',
   data () {
@@ -58,8 +64,16 @@ export default {
       paySele: '6',
       gameId: this.$route.query.gameId,
       regionId: this.$route.query.regionId,
-      ruleId: this.$route.query.ruleId
+      ruleId: this.$route.query.ruleId,
+      pop: 'pop',
+      white: 'white',
+      res: false,
+      alretMsg: '充值',
+      option: '主页'
     }
+  },
+  components: {
+    'success': SuccessAlert
   },
   computed: {
     ...mapState({
@@ -117,7 +131,15 @@ export default {
           gold: parseInt(this.gold),
           rule_id: parseInt(this.ruleId)
         }
-      this.api.simplePost('/api/web/index/createChargeBill', postData);
+      this.api.simplePost('/api/web/index/createChargeBill', postData, this.success);
+    },
+    success: function() {
+      this.res = true;
+    },
+    toInfo: function(child) {
+      if (child) {
+        this.$router.push({ name: 'info'});
+      }
     },
     toRule: function() {
       this.$router.push({ name: 'rule', query: { gameId: this.gameId, regionId: this.regionId}});
@@ -128,4 +150,9 @@ export default {
 
 <style scoped>
   @import "./../styles/charge.css";
+.pop {
+    height: 50%;
+    width: 90%;
+    text-align: center;
+  }
 </style>

@@ -15,20 +15,37 @@
         <input type="button" class="submitButton" id="submit" value="提交" @click="bindPhone">
       </div>
     </div>
+    <div id="addition">
+      <van-popup v-model="res" class="pop">
+        <success :alretMsg='alretMsg' @yes="noChange"></success>
+      </van-popup>
+      <van-popup v-model="res1" class="pop">
+        <success :alretMsg='alretMsgBind':option='option' @yes="toInfo"></success>
+      </van-popup>
+    </div>
   </div>
 </template>
 
 <script>
   import md5 from 'js-md5';
   import {mapMutations} from 'vuex';
+  import SuccessAlert from "../components/SuccessAlert.vue";
   export default {
     name: 'phoneB',
     data() {
       return {
         phone: '',
         code: '',
-        key: "wizard-member-client-message-code"
+        key: "wizard-member-client-message-code",
+        res: false,
+        res1:false,
+        alretMsg: '验证码发送',
+        alretMsgBind: '手机绑定',
+        option: '主页'
       }
+    },
+    components: {
+      'success': SuccessAlert
     },
     methods: {
       phoneCode: function() { //获取手机号码(绑定手机)
@@ -42,7 +59,15 @@
             language: "zh",
             sign: md5(this.phone + "|bind|zh|" + this.key)
           }
-          this.api.simplePost('/api/web/basic/sendMessageCode', postData);
+          this.api.simplePost('/api/web/basic/sendMessageCode', postData, this.success);
+        }
+      },
+      success: function() {
+        this.res = true;
+      },
+      noChange: function(child) {
+        if(child) {
+          this.res = false;
         }
       },
       bindPhone: function() {
@@ -71,8 +96,14 @@
           }
         }
       },
+      toInfo: function(child) {
+        if (child) {
+          this.$router.push({ name: 'info'});
+        }
+      },
       ...mapMutations({
         changeUserPhone(commit, postData) {
+          this.res1 = true;
           commit("changeUserPhone", postData)
         }
       })

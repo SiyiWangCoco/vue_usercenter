@@ -3,7 +3,7 @@
     <div>
       <a class="cancel" href="#/user/info"></a>
     </div>
-    <component :is="current"  @old="old"></component>
+    <component :is="current"  @old="old" :res='res'></component>
   </div>
 </template>
 
@@ -16,7 +16,8 @@
         current: '',
         old_password: null,
         new_password: '',
-        confirm_password: ''
+        confirm_password: '',
+        res: false
 
       }
     },
@@ -71,8 +72,11 @@
             new_password: this.new_password,
             confirm_password: this.confirm_password
           }
-          this.api.simplePost('/api/web/index/modifyPassword', postData);
+          this.api.simplePost('/api/web/index/modifyPassword', postData, this.success);
         }
+      },
+      success: function() {
+        this.res = true;
       },
       old: function(child) { //  是否有原密码
         if (child == true) {

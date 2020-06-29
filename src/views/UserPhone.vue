@@ -6,7 +6,9 @@
       </div>
       <component :is="current" @change="change" @error='error'></component>
     </div>
-    <unbind v-show='unbind' @yes="toUnbind" :unbindType='unbindType'></unbind>
+    <van-popup v-model="unbind" position="bottom">
+      <unbind  @yes="toUnbind" :unbindType='unbindType'></unbind>
+    </van-popup>
   </div>
 </template>
 

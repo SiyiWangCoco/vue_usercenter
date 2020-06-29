@@ -4,23 +4,35 @@
       <h1 class="header">实名认证</h1>
       <div class="describe">请如实填写您的姓名和身份证号</div>
     </div>
-    <a class="inputBoxes">
+    <div class="inputBoxes">
       <input type="text" class="userInput" id="realName" placeholder="请填入您的真实姓名" v-model="real_name">
       <input type="text" class="userInput" id="identityNum" placeholder="请填写您的身份证号码" v-model="card_id">
       <input type="button" class="submitButton" id="submit" value="提交" @click="idTest">
-    </a>
+    </div>
+    <div id="addition">
+      <van-popup v-model="res" class="pop">
+        <success :alretMsg='alretMsg':option='option' @yes="toInfo"></success>
+      </van-popup>
+    </div>
   </div>
 </template>
 
 <script>
   import {mapMutations} from 'vuex';
+  import SuccessAlert from "../components/SuccessAlert.vue";
   export default {
     name: 'identityB',
     data() {
       return {
         real_name: '',
-        card_id: ''
+        card_id: '',
+        res: false,
+        alretMsg: '实名认证',
+        option: '主页'
       }
+    },
+    components: {
+      'success': SuccessAlert
     },
     methods: {
       idTest: function() {
@@ -46,8 +58,14 @@
           this.api.Post('/api/web/index/realNameAuthentication', postData, this.changeUserId);
         }
       },
+      toInfo: function(child) {
+        if (child) {
+          this.$router.push({ name: 'info'});
+        }
+      },
       ...mapMutations({
         changeUserId(commit, postData) {
+          this.res = true;
           commit("changeUserId", postData)
         }
       })
