@@ -24,7 +24,7 @@
         </div>
         <div class="whitleLine">
           <div class="details2">性别</div>
-          <button :class="[class1, birthColor]" id="sex" is-link @click="showSex"> {{getSex}} </button>
+          <button :class="[class1, birthColor]" id="sex" is-link @click="showSex"> {{curSex}} </button>
         </div>
         <div class="whitleLine">
           <div class="details2">生日</div>
@@ -39,12 +39,12 @@
         </div>
       </div>
       <div class="addtion">
-        <van-popup v-model="show0" position="bottom" :style="{ height: '44%' }">
-          <van-picker title="选择性别" show-toolbar :columns="columns" />
+        <van-popup v-model="show0" position="bottom" :style="{ height: '44%' }" @close="cancelSex" @open="openSex">
+          <van-picker title="选择性别" show-toolbar :columns="columns" @confirm="confirmSex" @cancel="cancelSex" ref="get"/>
         </van-popup>
-        <van-popup v-model="show1" position="bottom" :style="{ height: '44%' }" @close="close" @open="open">
+        <van-popup v-model="show1" position="bottom" :style="{ height: '44%' }" @close="closeBirth" @open="openBirth">
           <van-datetime-picker v-model="currentDate" type="date" title="选择生日" :min-date="minDate" :max-date="maxDate"
-            @confirm="setBirth(currentDate)" @cancel="cancel" />
+            @confirm="setBirth(currentDate)" @cancel="cancelBirth" />
         </van-popup>
       </div>
 
@@ -70,9 +70,11 @@
         maxDate: new Date(),
         currentDate: new Date(),
         confirmed: false,
+        sexConfirmed:false,
         curBirth: '',
         curLogo:'',
-        curNick:''
+        curNick:'',
+        curSex: ''
       }
     },
     computed: {
@@ -94,6 +96,7 @@
       this.curBirth = this.birthday;
       this.curLogo = this.logo;
       this.curNick = this.nick;
+      this.curSex = this.getSex;
       if (this.curBirth.length != 0) {
         let date = this.curBirth.split("-");
         this.currentDate = new Date(date[0], date[1] - 1, date[2]);
@@ -106,6 +109,18 @@
       showSex: function() {
         this.show0 = true;
       },
+      openSex: function() {
+        this.sexConfirmed = false;
+      },
+      cancelSex: function() {
+        this.sexConfirmed = false;
+        this.show0 = false;
+      },
+      confirmSex: function() {
+        this.sexConfirmed = true;
+        this.show0 = false;
+        this.curSex = this.$refs.get.getValues()[0];
+      },
       uploadLogo: function() {
         $("#photoFile").click();
       },
@@ -117,16 +132,16 @@
         logo.append('file', e.currentTarget.files[0]);
         this.api.imagePost('/api/web/index/uploadImage', logo, this.setLogo);
       },
-      open: function() {
+      openBirth: function() {
         this.confirmed = false;
       },
-      close: function() {
+      closeBirth: function() {
         if (this.confirmed == false) {
           let date = this.curBirth.split("-");
           this.currentDate = new Date(date[0], date[1] - 1, date[2]);
         }
       },
-      cancel: function() {
+      cancelBirth: function() {
         this.confirmed = false;
         this.show1 = false;
       },
@@ -151,12 +166,22 @@
         this.curBirth = year + ym + month + md + day;
       },
       changeInfo: function() {
-        let postData = {
-          logo: this.curLogo,
-          birthday: this.curBirth,
-          sex: 2, // this.sex,
-          nick: this.curNick
+        let postData;
+        if (this.sex == 0) {
+          postData = {
+            logo: this.curLogo,
+            birthday: this.curBirth,
+            nick: this.curNick
+          }
+        } else {
+          postData = {
+            logo: this.curLogo,
+            birthday: this.curBirth,
+            sex:  this.$refs.get.getIndexes()[0] + 1,
+            nick: this.curNick
+          }
         }
+
         this.api.Post('/api/web/index/modifyUser', postData, this.changeUserInfo);
       },
       ...mapMutations({

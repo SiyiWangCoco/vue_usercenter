@@ -14,7 +14,7 @@
     <div class="comfirmBox">
       <div class="blackLine">
         <div class="comfirmLabel">充值账号：</div>
-        <div class="confirmInfo"><span id="account">{{account}}</span></div>
+        <div class="confirmInfo"><span id="account">{{accountName}}</span></div>
       </div>
       <div class="greyLine">
         <div class="comfirmLabel">游戏区服：</div>
@@ -43,11 +43,12 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   name: 'pay',
   data () {
     return {
-      account: '',
+      accountName: '',
       gameName: '',
       gameRe: '',
       ruleName:'',
@@ -60,59 +61,51 @@ export default {
       ruleId: this.$route.query.ruleId
     }
   },
+  computed: {
+    ...mapState({
+      account: (state) => state.user.account,
+      email: (state) => state.user.email,
+      phone: (state) => state.user.phone,
+      games: (state) => state.game.games,
+      payments:(state) => state.game.payments,
+      rules: (state) => state.game.rules,
+    })
+  },
   mounted: function(){
-    let getData = {
-      game_id: this.gameId,
-      region_id: this.regionId,
-      language: "zh"
+    if (this.account.length != 0) { //  充值账号：用户名
+      this.accountName = this.account;
+    } else if (this.email.length != 0) {
+      this.accountName = this.email;
+    } else if (this.phone.length != 0) {
+      this.accountName = this.phone;
+    } else {
+     alert("error: can't get account");
     }
-    let vue = this;
-    let chargeRulesGet = this.api.simpleGet('/api/web/index/getChargeRules', getData);
-    let gameDataGet = this.api.simpleGet('/api/web/basic/chargeBaseData', null);
-    let userDataGet = this.api.simpleGet('/api/web/index/getUserBasicInfo', null);
-    this.$axios.all([userDataGet, gameDataGet, chargeRulesGet])
-      .then(this.$axios.spread(function(userData, gameData, chargeRules) {
-        console.log(userData);
-        console.log(gameData);
-        console.log(chargeRules);
-        vue.setInfo(userData.data.data, gameData.data.data, chargeRules.data.data);
-      }))
+    for (let i = 0; i < this.games.length; i++) { //  游戏区服： 对应游戏名和区名
+      if (this.games[i].id == this.gameId) {
+        this.gameName = this.games[i].name.zh;
+        for (let j = 0; j < this.games[i].regions.length; j++) {
+          if (this.games[i].regions[j].id == this.regionId) { // regions
+            this.gameRe = this.games[i].regions[j].name;
+            break;
+          }
+        }
+        break;
+      }
+    }
+    for (let i = 0; i < this.rules.length; i++) { // 充值礼包与支付金额
+      if (this.rules[i].id == this.ruleId) {
+        this.ruleName = this.rules[i].name;
+        this.ruleAmount = this.rules[i].amount;
+        this.gold = this.rules[i].gold;
+        break;
+        }
+    }
+    for (let i = 0; i < this.payments.length; i++ ) { // 支付选项
+      this.payList.push(this.payments[i]);
+    }
   },
   methods:{
-    setInfo: function(userData, gameData, chargeRules) {
-      if (userData.account.length != 0) { //  充值账号：用户名
-        this.account = userData.account;
-      } else if (userData.email.length != 0) {
-        this.account = userData.email;
-      } else if (userData.phone.length != 0) {
-        this.account = userData.phone;
-      } else {
-       alert("error: can't get account");
-      }
-      for (let i = 0; i < gameData.games.length; i++) { //  游戏区服： 对应游戏名和区名
-        if (gameData.games[i].id == this.gameId) {
-          this.gameName = gameData.games[i].name.zh;
-          for (let j = 0; j < gameData.games[i].regions.length; j++) {
-            if (gameData.games[i].regions[j].id == this.regionId) { // regions
-              this.gameRe = gameData.games[i].regions[j].name;
-              break;
-            }
-          }
-          break;
-        }
-      }
-      for (let i = 0; i < chargeRules.rules.length; i++) { // 充值礼包与支付金额
-        if (chargeRules.rules[i].id == this.ruleId) {
-          this.ruleName = chargeRules.rules[i].name;
-          this.ruleAmount = chargeRules.rules[i].amount;
-          this.gold = chargeRules.rules[i].gold;
-          break;
-          }
-      }
-      for (let i = 0; i < gameData.payments.length; i++ ) { // 支付选项
-        this.payList.push(gameData.payments[i]);
-      }
-    },
     pay: function() {
      let postData = {
           game_id : parseInt(this.gameId),
@@ -125,7 +118,7 @@ export default {
           rule_id: parseInt(this.ruleId)
         }
       this.api.simplePost('/api/web/index/createChargeBill', postData);
-      },
+    },
     toRule: function() {
       this.$router.push({ name: 'rule', query: { gameId: this.gameId, regionId: this.regionId}});
     }

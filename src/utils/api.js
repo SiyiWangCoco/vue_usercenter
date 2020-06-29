@@ -61,7 +61,6 @@ const loginPost = (api1, postData, api2, func) => {
       storage.token = res.data.data.user_token;
       token = res.data.data.user_token;
       Get(api2,func);
-      window.location.href = '#/user/info';
     } else { // 请求失败code和信息
       alert(res.data.code + ": " + res.data.msg);
     }

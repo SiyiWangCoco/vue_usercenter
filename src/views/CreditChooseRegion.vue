@@ -25,6 +25,7 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex';
   export default {
     name: 'region',
     data() {
@@ -36,25 +37,27 @@
         regionRight: []
       }
     },
-    mounted: function() {
-      this.api.Get('/api/web/basic/chargeBaseData', this.setRegion);
+    computed: {
+      ...mapState({
+        games: (state) => state.game.games
+      })
     },
-    methods: {
-      setRegion: function(data) {
-        for (let i = 0; i < data.games.length; i++) { //根据游戏id显示对应区服选项
-          if (data.games[i].id == this.gameId) {
-            this.gameName = data.games[i].name.zh;
-            this.gameAds = data.games[i].advertisement.zh;
-            for (let j = 0; j < data.games[i].regions.length; j++) {
-              if (j % 2 != 0) {
-                this.regionRight.push(data.games[i].regions);
-              } else {
-                this.regionLeft.push(data.games[i].regions);
-              }
+    mounted: function() {// setRegion
+      for (let i = 0; i < this.games.length; i++) { //根据游戏id显示对应区服选项
+        if (this.games[i].id == this.gameId) {
+          this.gameName = this.games[i].name.zh;
+          this.gameAds = this.games[i].advertisement.zh;
+          for (let j = 0; j < this.games[i].regions.length; j++) {
+            if (j % 2 != 0) {
+              this.regionRight.push(this.games[i].regions);
+            } else {
+              this.regionLeft.push(this.games[i].regions);
             }
           }
         }
-      },
+      }
+    },
+    methods: {
       toRule: function(e){
         this.$router.push({name:'rule',query:{gameId: this.gameId, regionId: e.currentTarget.id}});
       }

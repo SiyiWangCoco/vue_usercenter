@@ -26,7 +26,7 @@
 
 <script>
   import Rule from "../components/Rule.vue";
-
+  import { mapState, mapMutations } from 'vuex';
   export default {
     name: 'rule',
     data() {
@@ -35,11 +35,16 @@
         gameRe: '',
         gameId: this.$route.query.gameId,
         regionId: this.$route.query.regionId,
-        rules: []
       }
     },
     components: {
       'sigleRule': Rule
+    },
+    computed: {
+      ...mapState({
+        games: (state) => state.game.games,
+        rules: (state) => state.game.rules,
+      })
     },
     mounted: function() {
       let getData = {
@@ -48,30 +53,26 @@
         language: "zh"
       }
       let vue = this;
-      let chargeRulesGet = this.api.simpleGet('/api/web/index/getChargeRules', getData);
-      let gameDataGet = this.api.simpleGet('/api/web/basic/chargeBaseData', null);
-      this.$axios.all([gameDataGet, chargeRulesGet])
-        .then(this.$axios.spread(function(gameData, chargeRules) {
-          console.log(gameData);
-          console.log(chargeRules);
-          vue.setRule(gameData.data.data, chargeRules.data.data);
-        }))
+      this.api.simpleGet('/api/web/index/getChargeRules', getData)
+      .then(function(chargeRules) {
+          vue.setRule(chargeRules.data.data);
+        })
     },
     methods: {
-      setRule: function(gameData, chargeRules) {
-         for (let i = 0; i < gameData.games.length; i++) { //对应游戏名和区名
-          if (gameData.games[i].id == this.gameId) {
-            this.gameName = gameData.games[i].name.zh;
-            for (let j = 0; j < gameData.games[i].regions.length; j++) {
-              if (gameData.games[i].regions[j].id == this.regionId) { // regions
-                this.gameRe = gameData.games[i].regions[j].name;
+      setRule: function(chargeRules) {
+         for (let i = 0; i < this.games.length; i++) { //对应游戏名和区名
+          if (this.games[i].id == this.gameId) {
+            this.gameName = this.games[i].name.zh;
+            for (let j = 0; j < this.games[i].regions.length; j++) {
+              if (this.games[i].regions[j].id == this.regionId) { // regions
+                this.gameRe = this.games[i].regions[j].name;
                 break;
               }
             }
             break;
           }
         }
-        this.rules = chargeRules.rules; //充值选择
+        this.saveRule(chargeRules.rules);//充值选择
       },
       toRegion: function() {
         this.$router.push({name: 'region', query: {gameId: this.gameId }});
@@ -79,7 +80,12 @@
       toConfirm: function(ruleId) {
         this.$router.push({ name: 'pay', query: { gameId: this.gameId, regionId: this.regionId, ruleId: ruleId}
         });
-      }
+      },
+      ...mapMutations({
+        saveRule(commit, rule) {
+          commit("saveRule", rule)
+        }
+      })
     }
   }
 </script>

@@ -36,6 +36,7 @@
 
 <script>
    import UnbindConfirmedAlert from "../components/UnbindConfirmedAlert.vue";
+   import {mapState, mapMutations} from 'vuex';
   export default {
     name: 'thirdParty',
     data() {
@@ -53,24 +54,26 @@
     components: {
       'unbind': UnbindConfirmedAlert
     },
+    computed: {
+      ...mapState({
+        third_accounts: (state) => state.user.third_accounts
+      })
+    },
     mounted: function() {
-      this.api.Get('/api/web/index/getUserBasicInfo', this.setThirdParty);
+      if (this.third_accounts.length != 0) {
+        if (this.third_accounts.key == 'qq') {
+          this.qq = false;
+        }
+        if (this.third_accounts.key == 'weibo') {
+          this.weibo = false;
+        }
+        if (this.third_accounts.key == 'wechat') {
+          this.wechat = false;
+        }
+      }
       this.api.Get('/api/web/index/getThirdLoginBindUrl', this.thirdPartyUrl);
     },
     methods: {
-      setThirdParty: function(data) {
-        if (data.third_accounts.length != 0) {
-          if (third_accounts.key == 'qq') {
-            this.qq = false;
-          }
-          if (third_accounts.key == 'weibo') {
-            this.weibo = false;
-          }
-          if (third_accounts.key == 'wechat') {
-            this.wechat = false;
-          }
-        }
-      },
       thirdPartyUrl: function(data){
         this.url = data;
       },
@@ -115,8 +118,13 @@
           type: this.curUnbind,
           jump_code_verify: this.jump_code_verify
         }
-        this.api.simplePost('/api/web/index/unBindThirdParty', postData);
-      }
+        this.api.Post('/api/web/index/unBindThirdParty', postData, this.unbindUserThird);
+      },
+      ...mapMutations({
+        unbindUserThird(commit, postData) {
+          commit("unbindUserThird", postData);
+        }
+      })
     }
   }
 </script>

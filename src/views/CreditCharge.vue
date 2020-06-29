@@ -44,6 +44,7 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex';
   export default {
     name: 'game',
     data() {
@@ -60,22 +61,24 @@
         game1Background: ''
       }
     },
-    mounted: function() {
-      this.api.Get('/api/web/basic/chargeBaseData', this.setGame);
+	computed: {
+	  ...mapState({
+	    games: (state) => state.game.games
+	  })
+	},
+    mounted: function() { //setGame
+      this.game1 = this.games[0].name.zh;
+      this.game2 = this.games[1].name.zh;
+      this.game3 = this.games[2].name.zh;
+      this.ads1 = this.games[0].advertisement.zh;
+      this.ads2 = this.games[1].advertisement.zh;
+      this.ads3 = this.games[2].advertisement.zh;
+      this.game1Id = this.games[0].id;
+      this.game2Id = this.games[1].id;
+      this.game3Id = this.games[2].id;
+      this.game1Background = "background: url(" + this.games[0].logo + ") no-repeat center center"; //图片缺失
     },
     methods: {
-      setGame: function(data) {
-        this.game1 = data.games[0].name.zh;
-        this.game2 = data.games[1].name.zh;
-        this.game3 = data.games[2].name.zh;
-        this.ads1 = data.games[0].advertisement.zh;
-        this.ads2 = data.games[1].advertisement.zh;
-        this.ads3 = data.games[2].advertisement.zh;
-        this.game1Id = data.games[0].id;
-        this.game2Id = data.games[1].id;
-        this.game3Id = data.games[2].id;
-        this.game1Background = "background: url(" + data.games[0].logo + ") no-repeat center center"; //图片缺失
-      },
       toRegion: function(e) {
         this.$router.push({name:'region',query:{gameId: e.currentTarget.id}});
       }

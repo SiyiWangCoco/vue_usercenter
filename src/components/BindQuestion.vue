@@ -7,11 +7,7 @@
     <div class="inputBoxes">
       <div class="verification">
         <img class="questionIcon" src="../assets/question.png">
-        <select type="text" id="question">
-          <option selected="selected" value="-1" v-model="question">请选择您设置的密保问题</option>
-          <option v-for="(question, i) in question_list" :value="question.question">{{question.question}}</option>
-
-        </select>
+        <input type="button" id="question" class="userInput" v-model="question" @click="showUp">
       </div>
       <input type="text" class="userInput" id="answer" placeholder="请输入您的密保答案" v-model="answer">
       <input type="text" class="userInput" id="answerAgain" placeholder="请再次输入您的密保答案" v-model="confirm_answer">
@@ -19,19 +15,29 @@
         <input type="button" class="submitButton" id="submit" value="提交" @click="bindQuestion">
       </div>
     </div>
+    <div class="addtion">
+      <van-popup v-model="show" position="bottom" :style="{ height: '44%' }"  @close="cancel" @open="open">
+        <van-picker show-toolbar :columns="questions"  :defaultIndex="defaultIndex" @confirm="confirm" @cancel="cancel" ref="get" />
+      </van-popup>
+    </div>
   </div>
 </template>
 
 <script>
-  import { mapState} from 'vuex';
+  import {mapState, mapMutations} from 'vuex';
   export default {
     name: 'questionA',
     data() {
       return {
+        show: false,
+        confirmed: false,
+        defaultIndex: 0,
         answer: '',
         confirm_answer: '',
-        question: '',
-        jump_code_verify: 1
+        question: '请选择您设置的密保问题',
+        questions: [],
+        jump_code_verify: 1,
+
       }
     },
     computed: {
@@ -39,9 +45,31 @@
         question_list: (state) => state.game.question_list
       })
     },
+    mounted: function(){
+       this.questions.push('请选择您设置的密保问题');
+      for (let i = 0; i < this.question_list.length; i++){
+       this.questions.push(this.question_list[i].question);
+      }
+    },
     methods: {
+      showUp: function() {
+        this.show = true;
+      },
+      open: function() {
+        this.confirmed = false;
+      },
+      cancel: function() {
+        this.confirmed = false;
+        this.show = false;
+      },
+      confirm: function() {
+        this.confirmed = true;
+        this.show = false;
+        this.question = this.$refs.get.getValues()[0];
+        this.defaultIndex = this.$refs.get.getIndexes()[0];
+      },
       bindQuestion: function() {
-        if (this.question == "-1") {
+        if (this.question == "请选择您设置的密保问题") {
           alert("请选择您设置的密保问题");
           return;
         } else if (this.answer.length == 0) {
@@ -61,9 +89,14 @@
             question: this.question,
             jump_code_verify: this.jump_code_verify
           }
-          this.api.Post('/api/web/index/setSecurityQuestion', postData);
+          this.api.Post('/api/web/index/setSecurityQuestion', postData, this.changeUserQuestion);
         }
-      }
+      },
+      ...mapMutations({
+        changeUserQuestion(commit, postData) {
+          commit("changeUserQuestion", postData)
+        }
+      })
     }
   }
 </script>
