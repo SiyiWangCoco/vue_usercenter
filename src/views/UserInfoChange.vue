@@ -157,8 +157,7 @@
           sex: 2, // this.sex,
           nick: this.curNick
         }
-        this.api.Post('/api/web/index/modifyUser', postData);
-        this.changeUserInfo(postData)
+        this.api.Post('/api/web/index/modifyUser', postData, this.changeUserInfo);
       },
       ...mapMutations({
         changeUserInfo(commit, postData) {

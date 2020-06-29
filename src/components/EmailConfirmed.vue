@@ -5,7 +5,7 @@
     </div>
     <div class="textDescribe">
       您的邮箱已经绑定成功，您可以使用邮箱登录或在忘记密码时使用邮箱找回您的密码
-      <br> 您的电子邮箱：<span class="important">{{emailNum}}</span>
+      <br> 您的电子邮箱：<span class="important">{{email}}</span>
     </div>
     <div class="inputBoxes">
       <input type="button" class="submitButton" id="setPhoneButton" value="解除绑定" @click="change">
@@ -14,25 +14,25 @@
 </template>
 
 <script>
+  import { mapState} from 'vuex';
   export default {
     name: 'email-1',
     data() {
-      return {
-        emailNum: 'jyp@wooduan.com'
-      }
+      return {}
     },
+	computed: {
+	  ...mapState({
+	    email: (state) => state.user.email
+	  })
+	},
     mounted: function() {
-      this.api.Get('/api/web/index/getUserBasicInfo', this.getEmail);
+     let mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+     if (!mailReg.test(this.email)) {
+       alert("您还没有设置电子邮箱");
+       this.noEmail();
+     } 
     },
     methods: {
-      getEmail: function(data) { //  已有邮箱读取邮箱信息
-        if (data.email.length == 0) {
-          alert("您还没有设置电子邮箱");
-          this.noEmail();
-        } else {
-          this.emailNum = data.email;
-        }
-      },
       noEmail: function() {
         this.$emit('error', true)
       },

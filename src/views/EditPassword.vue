@@ -71,7 +71,7 @@
             new_password: this.new_password,
             confirm_password: this.confirm_password
           }
-          this.api.Post('/api/web/index/modifyPassword', postData);
+          this.api.simplePost('/api/web/index/modifyPassword', postData);
         }
       },
       old: function(child) { //  是否有原密码

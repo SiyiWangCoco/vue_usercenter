@@ -57,7 +57,23 @@ const user = {
       state.logo = postData.logo;
       state.nick = postData.nick;
       state.birthday = postData.birthday;
-    }
+    },
+    changeUserId(state, postData) { //real_name, card_id
+      state.real_name = postData.real_name;
+      state.card_id = postData.card_id.substr(0,3) + '******' + postData.card_id.substr(-6,6);
+    },
+    changeUserPhone(state, postData) { //phone
+      state.phone = postData.phone;
+    },
+    unbindUserPhone(state, postData) { //phone
+      state.phone = '未设置';
+    },
+    changeUserEmail(state, postData) { //email
+      state.email = postData.email;
+    },
+    unbindUserEmail(state, postData) { //email
+      state.email = '未设置';
+    },
   },
   getters: {
     getNick(state) {//用户名
@@ -96,16 +112,25 @@ const game = {
     games: [],
     payments: [],
     base_configs: {},
-    third_login_url: {}
+    third_login_url: {},
+    question_list: [],
+    a: []
   },
   mutations: {
     setGameInfo(state, data) {
-      console.log('here')
       state.games = data.games;
       state.payments = data.payments;
       state.base_configs = data.base_configs;
       state.third_login_url = data.base_configs.third_login_url;
-    }
+    },
+    setQuestion(state, data) { //   设置系统密保问题
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].language == "zh") {
+          state.question_list.push(data[i]);
+        }
+      }
+    },
+
   }
 }
 

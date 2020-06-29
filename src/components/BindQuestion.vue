@@ -9,7 +9,7 @@
         <img class="questionIcon" src="../assets/question.png">
         <select type="text" id="question">
           <option selected="selected" value="-1" v-model="question">请选择您设置的密保问题</option>
-          <option v-for="(question, i) in questionList" :value="question.question">{{question.question}}</option>
+          <option v-for="(question, i) in question_list" :value="question.question">{{question.question}}</option>
 
         </select>
       </div>
@@ -23,28 +23,23 @@
 </template>
 
 <script>
+  import { mapState} from 'vuex';
   export default {
     name: 'questionA',
     data() {
       return {
-        questionList: [],
         answer: '',
         confirm_answer: '',
         question: '',
         jump_code_verify: 1
       }
     },
-    mounted: function() {
-      this.api.Get('/api/web/basic/getSecurityQuestions', this.setQuestion);
+    computed: {
+      ...mapState({
+        question_list: (state) => state.game.question_list
+      })
     },
     methods: {
-      setQuestion: function(data) { //   设置系统密保问题
-        for (let i = 0; i < data.length; i++) {
-          if (data[i].language == "zh") {
-            this.questionList.push(data[i]);
-          }
-        }
-      },
       bindQuestion: function() {
         if (this.question == "-1") {
           alert("请选择您设置的密保问题");

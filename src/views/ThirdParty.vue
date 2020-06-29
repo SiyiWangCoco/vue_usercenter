@@ -115,7 +115,7 @@
           type: this.curUnbind,
           jump_code_verify: this.jump_code_verify
         }
-        this.api.Post('/api/web/index/unBindThirdParty', postData);
+        this.api.simplePost('/api/web/index/unBindThirdParty', postData);
       }
     }
   }

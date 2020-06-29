@@ -87,7 +87,7 @@
           email: this.email,
           code: this.code
         }
-        this.api.Post('/api/web/basic/reg', postData);
+        this.api.simplePost('/api/web/basic/reg', postData);
       }
     }
   }

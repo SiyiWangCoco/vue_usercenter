@@ -5,7 +5,7 @@
       <div class="describe">您正在解除绑电子邮箱</div>
     </div>
     <div class="inputBoxes">
-      <input type="text" class="userInput" id="oldEmail" :placeholder="oldEmail">
+      <input type="text" class="userInput" id="oldEmail" :placeholder="email">
       <div class="verification">
         <input type="text" class="userInput" id="verificationEnter" placeholder="邮箱验证码" v-model="code">
         <input type="button" id="verificationSend" value="发送验证码" @click="emailCode">
@@ -24,30 +24,31 @@
 </template>
 
 <script>
+  import {mapState, mapMutations} from 'vuex';
   export default {
     name: 'emailC',
     data() {
       return {
-        oldEmail: 'jyp@wooduan.com',
         code: '',
         image_code: ''
       }
     },
+    computed: {
+      ...mapState({
+        email: (state) => state.user.email
+      })
+    },
     mounted: function() {
-      this.api.Get('/api/web/index/getUserBasicInfo', this.getEmail);
       this.api.Get("/api/VerificationCode/img", this.refreshCode);
     },
     methods: {
-      getEmail: function(data) { //  已有邮箱读取邮箱信息
-        this.oldEmail = data.email;
-      },
       emailCode: function() {
         let postData = {
-          email: this.oldEmail,
+          email: this.email,
           type: 'unbind',
           language: "zh"
         }
-        this.api.Post('/api/web/basic/sendEmailCode', postData);
+        this.api.simplePost('/api/web/basic/sendEmailCode', postData);
       },
       imageCode: function() {
         this.api.Get("/api/VerificationCode/img", this.refreshCode);
@@ -69,13 +70,18 @@
             return;
           }
           let postData = {
-            email: this.oldEmail,
+            email: this.email,
             code: num,
             image_code: this.image_code
           }
-          this.api.Post('/api/web/index/unBindEmail', postData);
+          this.api.Post('/api/web/index/unBindEmail', postData, this.unbindUserEmail);
         }
-      }
+      },
+      ...mapMutations({
+        unbindUserEmail(commit, postData) {
+          commit("unbindUserEmail", postData);
+        }
+      })
     }
   }
 </script>

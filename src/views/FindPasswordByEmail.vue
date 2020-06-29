@@ -43,7 +43,7 @@
             type: 'forgot',
             language: "zh"
           }
-          this.api.Post('/api/web/basic/sendEmailCode', postData);
+          this.api.simplePost('/api/web/basic/sendEmailCode', postData);
         }
       },
       testEmail: function() {
@@ -72,7 +72,7 @@
              code: this.code,
              language: "zh"
            }
-           this.api.Post('/api/web/basic/getPassword', postData);
+           this.api.simplePost('/api/web/basic/getPassword', postData);
            return;
          }
          console.log('password test failed');

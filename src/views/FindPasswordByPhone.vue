@@ -46,7 +46,7 @@
             language: "zh",
             sign: md5(this.phone + "|forgot|zh|" + this.key)
           }
-          this.api.Post('/api/web/basic/sendMessageCode', postData);
+          this.api.simplePost('/api/web/basic/sendMessageCode', postData);
         }
       },
       testPhone: function() {
@@ -75,7 +75,7 @@
             code: this.code,
             language: "zh"
           }
-          this.api.Post('/api/web/basic/getPassword', postData);
+          this.api.simplePost('/api/web/basic/getPassword', postData);
           return;
         }
         console.log('password test failed');

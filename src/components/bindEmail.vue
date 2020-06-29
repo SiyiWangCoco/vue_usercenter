@@ -19,6 +19,7 @@
 </template>
 
 <script>
+  import {mapMutations} from 'vuex';
   export default {
     name: 'email-0',
     data() {
@@ -38,7 +39,7 @@
             type: 'bind',
             language: "zh"
           }
-          this.api.Post('/api/web/basic/sendEmailCode', postData);
+          this.api.simplePost('/api/web/basic/sendEmailCode', postData);
         }
       },
       bindEmail: function() {
@@ -63,10 +64,15 @@
               email: this.email,
               code: num,
             }
-            this.api.Post('/api/web/index/bindEmail', postData);
+            this.api.Post('/api/web/index/bindEmail', postData, this.changeUserEmail);
           }
         }
-      }
+      },
+      ...mapMutations({
+        changeUserEmail(commit, postData) {
+          commit("changeUserEmail", postData)
+        }
+      })
     }
   }
 </script>

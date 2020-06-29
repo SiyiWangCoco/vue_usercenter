@@ -124,7 +124,7 @@ export default {
           gold: parseInt(this.gold),
           rule_id: parseInt(this.ruleId)
         }
-      this.api.Post('/api/web/index/createChargeBill', postData);
+      this.api.simplePost('/api/web/index/createChargeBill', postData);
       },
     toRule: function() {
       this.$router.push({ name: 'rule', query: { gameId: this.gameId, regionId: this.regionId}});

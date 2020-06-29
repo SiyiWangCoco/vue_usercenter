@@ -13,6 +13,7 @@
 </template>
 
 <script>
+  import {mapMutations} from 'vuex';
   export default {
     name: 'identityB',
     data() {
@@ -42,9 +43,14 @@
             real_name: this.real_name,
             card_id: this.card_id
           }
-          this.api.Post('/api/web/index/realNameAuthentication', postData);
+          this.api.Post('/api/web/index/realNameAuthentication', postData, this.changeUserId);
         }
-      }
+      },
+      ...mapMutations({
+        changeUserId(commit, postData) {
+          commit("changeUserId", postData)
+        }
+      })
     }
   }
 </script>

@@ -137,15 +137,7 @@
         'getQuestion': 'getQuestion',
       }),
     },
-    mounted: function() {
-      this.api.Get('/api/web/index/getUserBasicInfo', this.setUserInfo);
-    },
     methods: {
-      ...mapMutations({
-        setUserInfo(commit, data) {
-          commit("setUserInfo", data)
-        },
-      }),
       toPassword: function() {
         if (this.password_level > 0) {
           this.$router.push({ name: 'password', params: {has: true}});

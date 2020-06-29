@@ -67,7 +67,7 @@
             answer: this.answer,
             language: "zh"
           }
-          this.api.Post('/api/web/basic/getPassword', postData);
+          this.api.simplePost('/api/web/basic/getPassword', postData);
           return;
         }
          console.log('password test failed');

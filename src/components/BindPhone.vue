@@ -20,6 +20,7 @@
 
 <script>
   import md5 from 'js-md5';
+  import {mapMutations} from 'vuex';
   export default {
     name: 'phoneB',
     data() {
@@ -41,7 +42,7 @@
             language: "zh",
             sign: md5(this.phone + "|bind|zh|" + this.key)
           }
-          this.api.Post('/api/web/basic/sendMessageCode', postData);
+          this.api.simplePost('/api/web/basic/sendMessageCode', postData);
         }
       },
       bindPhone: function() {
@@ -66,10 +67,15 @@
               phone: this.phone,
               code: num,
             }
-            this.api.Post('/api/web/index/bindMobilePhone', postData);
+            this.api.Post('/api/web/index/bindMobilePhone', postData, this.changeUserPhone);
           }
         }
-      }
+      },
+      ...mapMutations({
+        changeUserPhone(commit, postData) {
+          commit("changeUserPhone", postData)
+        }
+      })
     }
   }
 </script>

@@ -26,11 +26,7 @@
 </template>
 
 <script>
-  import {
-    mapState,
-    mapMutations,
-    mapAction
-  } from 'vuex'
+  import {mapState, mapMutations, mapAction } from 'vuex'
   export default {
     name: 'login',
     data() {
@@ -56,6 +52,7 @@
     },
     mounted: function() {
       this.api.Get('/api/web/basic/chargeBaseData', this.setGameInfo);
+      this.api.Get('/api/web/basic/getSecurityQuestions', this.setQuestion);
     },
     methods: {
       login: function() { // 登录事件
@@ -93,7 +90,7 @@
           email: this.email,
           password: this.password
         }
-        this.api.Post('/api/web/basic/login', postData);
+        this.api.loginPost('/api/web/basic/login', postData, '/api/web/index/getUserBasicInfo', this.setUserInfo); //登录后获取用户信息
       },
       find: function() {
         if (this.userid.length == 0) { //  未输入账号
@@ -112,6 +109,12 @@
         setGameInfo(commit, data) {
           commit("setGameInfo", data)
         },
+        setQuestion(commit, data) {
+          commit("setQuestion", data)
+        },
+        setUserInfo(commit, data) {
+          commit("setUserInfo", data)
+        }
       })
     }
   }
