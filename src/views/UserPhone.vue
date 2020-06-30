@@ -19,7 +19,7 @@
     name: 'phone',
     data() {
       return {
-        has: this.$route.params.has,
+        has: this.$route.query.has,
         current: '',
         unbind: false,
         unbindType: '手机'

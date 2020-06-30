@@ -12,7 +12,7 @@
     name: 'identity',
     data() {
       return {
-        has: this.$route.params.has,
+        has: this.$route.query.has,
         current: ''
       }
     },

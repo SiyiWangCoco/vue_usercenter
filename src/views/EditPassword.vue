@@ -12,7 +12,7 @@
     name: 'password',
     data() {
       return {
-        has: this.$route.params.has,
+        has: this.$route.query.has,
         current: '',
         old_password: null,
         new_password: '',

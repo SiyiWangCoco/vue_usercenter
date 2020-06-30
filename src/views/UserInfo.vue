@@ -140,38 +140,38 @@
     methods: {
       toPassword: function() {
         if (this.password_level > 0) {
-          this.$router.push({ name: 'password', params: {has: true}});
+          this.$router.push({ name: 'password', query: {has: true}});
         } else {
-          this.$router.push({ name: 'password', params: {has: false}});
+          this.$router.push({ name: 'password', query: {has: false}});
         }
       },
       toIdentity: function() {
         if (this.card_id.length != 0) {
-          this.$router.push({ name: 'identity', params: {has: true}});
+          this.$router.push({ name: 'identity', query: {has: true}});
         } else {
-          this.$router.push({  name: 'identity', params: {has: false}});
+          this.$router.push({  name: 'identity', query: {has: false}});
         }
       },
       toPhone: function() {
         if (isNaN(parseInt(this.phone))) {
-          this.$router.push({ name: 'phone', params: {has: false}});
+          this.$router.push({ name: 'phone', query: {has: false}});
         } else {
-          this.$router.push({ name: 'phone',  params: {has: true}});
+          this.$router.push({ name: 'phone',  query: {has: true}});
         }
       },
       toEmail: function() {
         let mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
         if (mailReg.test(this.email)) {
-          this.$router.push({ name: 'email', params: {has: true}});
+          this.$router.push({ name: 'email', query: {has: true}});
         } else {
-          this.$router.push({name: 'email', params: {has: false}});
+          this.$router.push({name: 'email', query: {has: false}});
         }
       },
       toQuestion: function() {
         if (this.security_question != null) {
-          this.$router.push({ name: 'question', params: {has: true}});
+          this.$router.push({ name: 'question', query: {has: true}});
         } else {
-          this.$router.push({name: 'question', params: {has: false}});
+          this.$router.push({name: 'question', query: {has: false}});
         }
       },
       toAppeal: function() {

@@ -20,7 +20,7 @@
     name: 'email',
     data() {
       return {
-        has: this.$route.params.has,
+        has: this.$route.query.has,
         current: '',
         unbind: false,
         unbindType: '邮箱'
