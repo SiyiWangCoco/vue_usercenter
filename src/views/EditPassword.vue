@@ -8,11 +8,11 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex';
   export default {
     name: 'password',
     data() {
       return {
-        has: this.$route.query.has,
         current: '',
         old_password: null,
         new_password: '',
@@ -21,6 +21,11 @@
 
       }
     },
+    computed: {
+      ...mapState({
+        password_level: (state) => state.user.password_level,
+      }),
+     },
     components: {
       passwordA: function(resolve) {
         require(["../components/SetPassword.vue"], resolve)
@@ -30,10 +35,7 @@
       }
     },
     mounted: function() {
-      if (this.has == undefined) {
-        alert('Timeout');
-        window.location.href = '#/user/info';
-      } else if (this.has) {
+      if (this.password_level > 0) {
         this.current = 'passwordB';
       } else {
         this.current = 'passwordA';

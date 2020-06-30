@@ -15,17 +15,21 @@
 
 <script>
   import UnbindConfirmedAlert from "../components/UnbindConfirmedAlert.vue";
-
+  import { mapState } from 'vuex';
   export default {
     name: 'email',
     data() {
       return {
-        has: this.$route.query.has,
         current: '',
         unbind: false,
         unbindType: '邮箱'
       }
     },
+    computed: {
+      ...mapState({
+        email: (state) => state.user.email,
+      }),
+     },
     components: {
       emailA: function(resolve) {
         require(["../components/Bindemail.vue"], resolve)
@@ -39,10 +43,8 @@
       'unbind': UnbindConfirmedAlert
     },
     mounted: function() {
-      if (this.has == undefined) {
-        alert('Timeout');
-        window.location.href = '#/user/info';
-      } else if (this.has) {
+      let mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+      if (mailReg.test(this.email)) { 
         this.current = 'emailB';
       } else {
         this.current = 'emailA';

@@ -112,13 +112,13 @@
           } else  {
             alert('无解绑');
           }
+          let postData = {
+            type: this.curUnbind,
+            jump_code_verify: this.jump_code_verify
+          }
+          this.api.Post('/api/web/index/unBindThirdParty', postData, this.unbindUserThird);
         };
         this.unbind = false;
-        let postData = {
-          type: this.curUnbind,
-          jump_code_verify: this.jump_code_verify
-        }
-        this.api.Post('/api/web/index/unBindThirdParty', postData, this.unbindUserThird);
       },
       ...mapMutations({
         unbindUserThird(commit, postData) {

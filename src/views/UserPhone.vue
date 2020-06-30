@@ -14,17 +14,21 @@
 
 <script>
   import UnbindConfirmedAlert from "../components/UnbindConfirmedAlert.vue";
-
+  import { mapState } from 'vuex';
   export default {
     name: 'phone',
     data() {
       return {
-        has: this.$route.query.has,
         current: '',
         unbind: false,
         unbindType: '手机'
       }
     },
+    computed: {
+      ...mapState({
+        phone: (state) => state.user.phone,
+      }),
+     },
     components: {
       phoneA: function(resolve) {
         require(["../components/BindPhone.vue"], resolve)
@@ -38,13 +42,10 @@
       'unbind': UnbindConfirmedAlert
     },
     mounted: function() {
-      if (this.has == undefined) {
-        alert('Timeout');
-        window.location.href = '#/user/info';
-      } else if (this.has) {
-        this.current = 'phoneB';
-      } else {
+      if (isNaN(parseInt(this.phone))) {
         this.current = 'phoneA';
+      } else {
+        this.current = 'phoneB';
       }
     },
     methods: {

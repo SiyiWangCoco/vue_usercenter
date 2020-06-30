@@ -8,14 +8,19 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex';
   export default {
     name: 'question',
     data() {
       return {
-        has: this.$route.query.has,
         current: ''
       }
     },
+    computed: {
+      ...mapState({
+        security_question: (state) => state.user.security_question,
+      }),
+     },
     components: {
       questionA: function(resolve) {
         require(["../components/QuestionConfirmed.vue"], resolve)
@@ -25,10 +30,7 @@
       }
     },
     mounted: function() {
-      if (this.has == undefined) {
-        alert('Timeout');
-        window.location.href = '#/user/info';
-      } else if (this.has) {
+      if (this.security_question != null) {
         this.current = 'questionA';
       } else {
         this.current = 'questionB';

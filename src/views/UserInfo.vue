@@ -23,14 +23,14 @@
       <div id="userDetails">
         <div class="whitleLink">
           <div class="detailIcons"><img src="../assets/passwordColoredIcon.png"></div>
-          <a class="underLine" @click="toPassword">
+          <a class="underLine" href="#/user/password">
             <div class="details">密码设置</div>
             <div class="rightArrow"><img src="../assets/rightArrow.png"></div>
           </a>
         </div>
         <div class="whitleLink">
           <div class="detailIconss"><img src="../assets/identityColoredIcon.png"></div>
-          <a class="underLine" @click="toIdentity">
+          <a class="underLine" href="#/user/identity">
             <div class="details">实名认证</div>
             <div class="rightArrow"><img src="../assets/rightArrow.png"></div>
             <div class="detailInfo" id="realName">{{real_name}}</div>
@@ -38,7 +38,7 @@
         </div>
         <div class="whitleLink">
           <div class="detailIcons"><img src="../assets/phoneColoredIcon.png"></div>
-          <a class="underLine" @click="toPhone">
+          <a class="underLine" href="#/user/phone">
             <div class="details">手机号码</div>
             <div class="rightArrow"><img src="../assets/rightArrow.png"></div>
             <div class="detailInfo" id="phoneNum">{{phone}}</div>
@@ -46,7 +46,7 @@
         </div>
         <div class="whitleLink">
           <div class="detailIconss"><img src="../assets/emailColoredIcon.png"></div>
-          <a class="underLine" @click="toEmail">
+          <a class="underLine" href="#/user/email">
             <div class="details">电子邮箱</div>
             <div class="rightArrow"><img src="../assets/rightArrow.png"></div>
             <div class="detailInfo" id="emailNum">{{email}}</div>
@@ -54,7 +54,7 @@
         </div>
         <div class="whitleLink">
           <div class="detailIcons"><img src="../assets/questionColoredIcon.png"></div>
-          <a class="underLine" @click="toQuestion">
+          <a class="underLine"href="#/user/question">
             <div class="details">密保问题</div>
             <div class="rightArrow"><img src="../assets/rightArrow.png"></div>
             <div class="detailInfo" id="question">{{getQuestion}}</div>
@@ -128,9 +128,6 @@
         phone: (state) => state.user.phone,
         email: (state) => state.user.email,
         real_name: (state) => state.user.real_name,
-        card_id: (state) => state.user.card_id,
-        security_question: (state) => state.user.security_question,
-        password_level: (state) => state.user.password_level
       }),
       ...mapGetters({
         'getNick': 'getNick',
@@ -138,42 +135,6 @@
       }),
     },
     methods: {
-      toPassword: function() {
-        if (this.password_level > 0) {
-          this.$router.push({ name: 'password', query: {has: true}});
-        } else {
-          this.$router.push({ name: 'password', query: {has: false}});
-        }
-      },
-      toIdentity: function() {
-        if (this.card_id.length != 0) {
-          this.$router.push({ name: 'identity', query: {has: true}});
-        } else {
-          this.$router.push({  name: 'identity', query: {has: false}});
-        }
-      },
-      toPhone: function() {
-        if (isNaN(parseInt(this.phone))) {
-          this.$router.push({ name: 'phone', query: {has: false}});
-        } else {
-          this.$router.push({ name: 'phone',  query: {has: true}});
-        }
-      },
-      toEmail: function() {
-        let mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
-        if (mailReg.test(this.email)) {
-          this.$router.push({ name: 'email', query: {has: true}});
-        } else {
-          this.$router.push({name: 'email', query: {has: false}});
-        }
-      },
-      toQuestion: function() {
-        if (this.security_question != null) {
-          this.$router.push({ name: 'question', query: {has: true}});
-        } else {
-          this.$router.push({name: 'question', query: {has: false}});
-        }
-      },
       toAppeal: function() {
         this.$router.push({name: 'appeal', query: {info: true}});
       }

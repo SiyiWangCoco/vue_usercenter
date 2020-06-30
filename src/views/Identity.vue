@@ -8,14 +8,19 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex';
   export default {
     name: 'identity',
     data() {
       return {
-        has: this.$route.query.has,
         current: ''
       }
     },
+    computed: {
+      ...mapState({
+        card_id: (state) => state.user.card_id,
+      }),
+     },
     components: {
       identityA: function(resolve) {
         require(["../components/IdentityConfirmed.vue"], resolve)
@@ -25,10 +30,7 @@
       }
     },
     mounted: function() {
-      if (this.has == undefined) {
-        alert('Timeout');
-        window.location.href = '#/user/info';
-      } else if (this.has) {
+      if (this.card_id.length != 0) {
         this.current = 'identityA';
       } else {
         this.current = 'identityB';
