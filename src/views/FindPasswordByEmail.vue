@@ -15,10 +15,16 @@
       <input type="password" :class="[class1,class2]" id="passwordAgain" placeholder="请再次输入您的新密码" v-model="passwordAgain">
       <input type="button" class="submitButton" id="submit" value="提交" @click="testEmail">
     </div>
+    <div id="addition">
+      <van-popup v-model="codeRes" class="pop">
+        <success :alretMsg='alretMsg' @yes="noChange"></success>
+      </van-popup>
+    </div>
   </div>
 </template>
 
 <script>
+  import SuccessAlert from "../components/SuccessAlert.vue";
   export default {
     name: 'PasswordEmail',
     data() {
@@ -29,8 +35,13 @@
         password: '',
         passwordAgain: '',
         class1: 'userInput',
-        class2: 'password'
+        class2: 'password',
+        codeRes: false,
+        alretMsg: '验证码发送',
       }
+    },
+    components: {
+      'success': SuccessAlert
     },
     methods: {
       emailCode: function() { //获取邮箱号码(找回密码)
@@ -43,7 +54,15 @@
             type: 'forgot',
             language: "zh"
           }
-          this.api.simplePost('/api/web/basic/sendEmailCode', postData);
+          this.api.simplePost('/api/web/basic/sendEmailCode', postData, this.codeSuccess);
+        }
+      },
+      codeSuccess: function() {
+        this.codeRes = true;
+      },
+      noChange: function(child) {
+        if(child) {
+          this.codeRes = false;
         }
       },
       testEmail: function() {
@@ -72,10 +91,13 @@
              code: this.code,
              language: "zh"
            }
-           this.api.simplePost('/api/web/basic/getPassword', postData);
+           this.api.simplePost('/api/web/basic/getPassword', postData, this.success);
            return;
          }
          console.log('password test failed');
+       },
+       success: function(data) {
+         this.$emit('success', true);
        }
     }
   }

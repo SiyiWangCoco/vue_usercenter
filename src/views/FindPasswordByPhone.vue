@@ -15,10 +15,16 @@
       <input type="password" :class="[class1,class2]" id="passwordAgain" placeholder="请再次输入您的新密码" v-model="passwordAgain">
       <input type="button" class="submitButton" id="submit" value="提交" @click="testPhone">
     </div>
+    <div id="addition">
+      <van-popup v-model="codeRes" class="pop">
+        <success :alretMsg='alretMsg' @yes="noChange"></success>
+      </van-popup>
+    </div>
   </div>
 </template>
 
 <script>
+  import SuccessAlert from "../components/SuccessAlert.vue";
   import md5 from 'js-md5';
   export default {
     name: 'PasswordPhone',
@@ -31,8 +37,13 @@
         passwordAgain: '',
         key: "wizard-member-client-message-code",
         class1: 'userInput',
-        class2: 'password'
+        class2: 'password',
+        codeRes: false,
+        alretMsg: '验证码发送',
       }
+    },
+    components: {
+      'success': SuccessAlert
     },
     methods: {
       phoneCode: function() { //获取手机号码(忘记密码)
@@ -46,7 +57,15 @@
             language: "zh",
             sign: md5(this.phone + "|forgot|zh|" + this.key)
           }
-          this.api.simplePost('/api/web/basic/sendMessageCode', postData);
+          this.api.simplePost('/api/web/basic/sendMessageCode', postData, this.codeSuccess);
+        }
+      },
+      codeSuccess: function() {
+        this.codeRes = true;
+      },
+      noChange: function(child) {
+        if(child) {
+          this.codeRes = false;
         }
       },
       testPhone: function() {
@@ -75,10 +94,13 @@
             code: this.code,
             language: "zh"
           }
-          this.api.simplePost('/api/web/basic/getPassword', postData);
+          this.api.simplePost('/api/web/basic/getPassword', postData, this.success);
           return;
         }
         console.log('password test failed');
+      },
+      success: function(data) {
+        this.$emit('success', true);
       }
     }
   }

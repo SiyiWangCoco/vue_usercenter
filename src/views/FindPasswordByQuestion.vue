@@ -90,10 +90,13 @@
             answer: this.answer,
             language: "zh"
           }
-          this.api.simplePost('/api/web/basic/getPassword', postData);
+          this.api.simplePost('/api/web/basic/getPassword', postData, this.success);
           return;
         }
          console.log('password test failed');
+      },
+      success: function(data) {
+        this.$emit('success', true);
       }
     }
   }
