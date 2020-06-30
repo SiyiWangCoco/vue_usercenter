@@ -37,18 +37,18 @@
     methods: {
       idTest: function() {
         if (this.real_name.length == 0) { //未输入真实姓名
-          alert("请输入您的姓名");
+          this.$notify({message:'请输入您的姓名', background:'#cc3c3e',  duration: 2000});
           return;
         } else if (this.card_id.length == 0) { //未输入身份证号码
-          alert("请输入您的身份证号码");
+          this.$notify({message:'请输入您的身份证号码', background:'#cc3c3e',  duration: 2000});
           return;
         } else {
           var idreg = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/
           if (this.card_id.length != 15 && this.card_id.length != 18) { //身份证位数不对
-            alert("您的身份证号码应为15位或者18位数");
+            this.$notify({message:'您的身份证号码应为15位或者18位数', background:'#cc3c3e',  duration: 2000});
             return;
           } else if (idreg.test(this.card_id) == false) { //格式不正确
-            alert("您输入的身份证号码有误");
+            this.$notify({message:'您输入的身份证号码有误', background:'#cc3c3e',  duration: 2000});
             return;
           }
           let postData = {

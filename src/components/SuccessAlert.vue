@@ -1,5 +1,4 @@
 <template>
-
     <div >
       <div class="warningInnerBox">
         <img v-if="white" class="successIcon" src="../assets/successIcon.png" />

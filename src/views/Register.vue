@@ -61,19 +61,19 @@
       },
       register: function() {
         if (this.userid.length == 0) { // 未输入账号
-          alert("请输入账号/邮箱/手机号码");
+          this.$notify({message:'请输入账号/邮箱/手机号码', background:'#cc3c3e',  duration: 2000});
           return;
         } else if (this.password.length == 0) { //未输入密码
-          alert("请输入您的密码");
+          this.$notify({message:'请输入您的密码', background:'#cc3c3e',  duration: 2000});
           return;
         } else if (this.passwordAgain.length == 0) { //未再次输入密码
-          alert("请再次输入您的密码");
+          this.$notify({message:'请再次输入您的密码', background:'#cc3c3e',  duration: 2000});
           return;
         } else if (this.code.length == 0) { //未输入验证码
-          alert("请输入验证码");
+          this.$notify({message:'请输入验证码', background:'#cc3c3e',  duration: 2000});
           return;
         } else if (this.passwordAgain != this.password) { //密码不一致
-          alert("再次输入密码不一致请重新输入您的密码");
+          this.$notify({message:'再次输入密码不一致请重新输入您的密码', background:'#cc3c3e',  duration: 2000});
           return;
         } else { //信息都填写检测填写信息是否符合条件
           if (this.$passwordTest(this.password, this.passwordAgain)) {

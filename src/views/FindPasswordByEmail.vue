@@ -47,7 +47,7 @@
       emailCode: function() { //获取邮箱号码(找回密码)
         let mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
         if (mailReg.test(this.email) == false) { //输入为非法邮箱号
-          alert("请输入正确的电子邮箱")
+        this.$notify({message:"请输入正确的电子邮箱", background:'#cc3c3e',  duration: 2000});
         } else {
           let postData = {
             email: this.email,
@@ -67,15 +67,15 @@
       },
       testEmail: function() {
         if (this.email.length == 0) { // 未输入邮箱
-          alert("请输入您的电子邮箱");
+          this.$notify({message:"请输入您的电子邮箱", background:'#cc3c3e',  duration: 2000});
           return;
         } else if (this.code.length == 0) { //未输入验证码
-          alert("请输入验证码");
+          this.$notify({message:"请输入验证码", background:'#cc3c3e',  duration: 2000});
           return;
         } else {
           let mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
           if (mailReg.test(this.email) == false) { //输入为非法邮箱格式
-            alert("请输入正确的邮箱");
+            this.$notify({message:"请输入正确的邮箱", background:'#cc3c3e',  duration: 2000});
             return;
           }
           this.passwordPost();

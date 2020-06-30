@@ -49,7 +49,7 @@
       phoneCode: function() { //获取手机号码(忘记密码)
         let phoneReg = /^1[3-578]\d{9}$/;
         if (phoneReg.test(this.phone) == false) { //输入为非法手机号
-          alert("请输入正确的手机号码")
+          this.$notify({message:"请输入正确的手机号码", background:'#cc3c3e',  duration: 2000});
         } else {
           let postData = {
             phone: this.phone,
@@ -70,15 +70,15 @@
       },
       testPhone: function() {
         if (this.phone.length == 0) { // 未输入手机
-          alert("请输入您的手机号");
+          this.$notify({message:"请输入您的手机号", background:'#cc3c3e',  duration: 2000});
           return;
         } else if (this.code.length == 0) { //未输入验证码
-          alert("请输入验证码");
+          this.$notify({message:"请输入验证码", background:'#cc3c3e',  duration: 2000});
           return;
         } else {
           let phoneReg = /^1[3-578]\d{9}$/;
           if (phoneReg.test(this.phone) == false) { //输入为非法手机号格式
-            alert("请输入正确的手机号");
+            this.$notify({message:"请输入正确的手机号", background:'#cc3c3e',  duration: 2000});
             return;
           }
           this.passwordPost();

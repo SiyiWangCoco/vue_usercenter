@@ -83,15 +83,15 @@
       },
       unbindEmail: function() {
         if (this.image_code.length == 0) { //未输入图片验证码
-          alert("请输入图片验证码");
+          this.$notify({message:'请输入图片验证码', background:'#cc3c3e',  duration: 2000});
           return;
         } else if (this.code.length == 0) { //未输入邮箱验证码
-          alert("请输入邮箱验证码");
+          this.$notify({message:'请输入邮箱验证码', background:'#cc3c3e',  duration: 2000});
           return;
         } else {
           let num = parseInt(this.code);
           if (isNaN(num) || num.toString().length != this.code.length) {
-            alert("验证码有误");
+            this.$notify({message:'验证码有误', background:'#cc3c3e',  duration: 2000});
             return;
           }
           let postData = {

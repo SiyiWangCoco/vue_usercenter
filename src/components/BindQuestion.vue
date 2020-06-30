@@ -80,17 +80,17 @@
       },
       bindQuestion: function() {
         if (this.question == "请选择您设置的密保问题") {
-          alert("请选择您设置的密保问题");
+          this.$notify({message:'请选择您设置的密保问题', background:'#cc3c3e',  duration: 2000});
           return;
         } else if (this.answer.length == 0) {
-          alert("请填写您的答案");
+          this.$notify({message:'请填写您的答案', background:'#cc3c3e',  duration: 2000});
           return;
         } else if (this.confirm_answer.length == 0) {
-          alert("请再次填写您的答案");
+          this.$notify({message:'请再次填写您的答案', background:'#cc3c3e',  duration: 2000});
           return;
         } else {
           if (this.answer != this.confirm_answer) {
-            alert("两次填写答案不一致");
+            this.$notify({message:'两次填写答案不一致', background:'#cc3c3e',  duration: 2000});
             return;
           }
           let postData = {

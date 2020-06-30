@@ -71,10 +71,10 @@
       },
       testQuestion: function() {
         if (this.question == "请选择您设置的密保问题") { // 未选择问题
-          alert("请选择您设置的密保问题");
+          this.$notify({message:"请选择您设置的密保问题", background:'#cc3c3e',  duration: 2000});
           return;
         } else if (this.answer.length == 0) { //未输入答案
-          alert("请输入您的答案");
+          this.$notify({message:"请输入您的答案", background:'#cc3c3e',  duration: 2000});
           return;
         } else {
           this.passwordPost();

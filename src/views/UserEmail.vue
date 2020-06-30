@@ -44,7 +44,7 @@
     },
     mounted: function() {
       let mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
-      if (mailReg.test(this.email)) { 
+      if (mailReg.test(this.email)) {
         this.current = 'emailB';
       } else {
         this.current = 'emailA';

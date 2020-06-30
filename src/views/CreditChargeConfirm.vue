@@ -93,7 +93,7 @@ export default {
     } else if (this.phone.length != 0) {
       this.accountName = this.phone;
     } else {
-     alert("error: can't get account");
+      this.$notify({message:'error: can\'t get account', background:'#cc3c3e',  duration: 2000});
     }
     for (let i = 0; i < this.games.length; i++) { //  游戏区服： 对应游戏名和区名
       if (this.games[i].id == this.gameId) {

@@ -12,15 +12,28 @@
         <input type="button" class="submitButton" id="reset" value="重新设置" @click="setQuestion()">
       </a>
     </div>
+    <div id="addition">
+      <van-popup v-model="res" class="failPop">
+        <fail :alretTitle='alretTitle':alretMsg='alretMsg' @yes="toSetQuestion"></fail>
+      </van-popup>
+    </div>
   </div>
 </template>
 
 <script>
   import { mapState} from 'vuex';
+  import FailAlert from "../components/FailAlert.vue";
   export default {
     name: 'questionA',
     data() {
-      return {}
+      return {
+        res: false,
+        alretTitle: '密保获取失败',
+        alretMsg: '您还没选择密保问题，点击返回去绑定密保'
+      }
+    },
+    components: {
+      'fail': FailAlert
     },
     computed: {
       ...mapState({
@@ -29,13 +42,14 @@
     },
     mounted: function() {
       if (this.security_question == null) {
-        alert("您还没选择密保问题");
-        this.setQuestion();
+        this.res = true;
       }
     },
     methods: {
-      setQuestion: function() {
-        this.$emit('change', true);
+      toSetQuestion: function(child) {
+        if (child) {
+          this.$emit('change', true);
+        }
       }
     }
   }

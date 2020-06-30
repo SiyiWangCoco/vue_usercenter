@@ -70,10 +70,10 @@
     methods: {
       login: function() { // 登录事件
         if (this.userid.length == 0) { //  未输入账号
-          alert('请输入账号/邮箱/手机号码');
+          this.$notify({message:'请输入账号/邮箱/手机号码', background:'#cc3c3e',  duration: 2000});
           return;
         } else if (this.password.length == 0) { //  未输入密码
-          alert('请输入您的密码');
+          this.$notify({message:'请输入您的密码', background:'#cc3c3e',  duration: 2000});
           return;
         } else {
           let phoneReg = /^1[3-578]\d{9}$/;
@@ -107,7 +107,7 @@
       },
       find: function() {
         if (this.userid.length == 0) { //  未输入账号
-          alert('请输入账号/邮箱/手机号码');
+          this.$notify({message:'请输入账号/邮箱/手机号码', background:'#cc3c3e',  duration: 2000});
           return;
         } else {
           this.$router.push({

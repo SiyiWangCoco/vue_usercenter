@@ -110,7 +110,7 @@
           } else if (this.curUnbind == 'weixin') { //解绑wechat
             this.wechat = true;
           } else  {
-            alert('无解绑');
+            this.$notify({message:'无解绑', background:'#cc3c3e',  duration: 2000});
           }
           let postData = {
             type: this.curUnbind,

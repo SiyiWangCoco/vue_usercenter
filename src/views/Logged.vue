@@ -1,15 +1,28 @@
 <template>
   <div class="loggedBase">
     <router-view></router-view>
+    <div id="addition">
+      <van-popup v-model="res" class="failPop">
+        <fail :alretTitle='alretTitle':alretMsg='alretMsg' @yes="toLogin"></fail>
+      </van-popup>
+    </div>
   </div>
 </template>
 
 <script>
 import {mapState } from 'vuex'
+import FailAlert from "../components/FailAlert.vue";
 export default {
   name: 'user',
   data () {
-    return {}
+    return {
+      res: false,
+      alretTitle: '登录失败',
+      alretMsg: '您还没有登录，请您先登录！'
+    }
+  },
+  components: {
+    'fail': FailAlert
   },
   computed: {
     ...mapState({
@@ -18,9 +31,15 @@ export default {
   },
   mounted: function() {
     if (!this.logged) {
-      alert("您还没有登录，请您先登录！");
-      window.location.href = '/'
+      this.res = true;
       }
+  },
+  methods:{
+    toLogin: function(child) {
+      if (child) {
+        this.$router.push({ name: 'login'});
+      }
+    },
   }
 }
 </script>

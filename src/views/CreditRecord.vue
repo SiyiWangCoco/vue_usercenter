@@ -37,6 +37,9 @@
       <div id="creditDataBox">
         <creditData v-for='r in recordList' :key='r.id' :gameId='r.game_id' :regionId='r.region_id' :rName='r.rule_name' :rTime='r.created_at' :rAmount='r.amount' :code ='r.charge_code'></creditData>
       </div>
+      <div id="creditDataBox">
+        <no-record v-show='noRecord'></no-record>
+      </div>
     </div>
   </div>
   </div>
@@ -44,7 +47,7 @@
 
 <script>
   import SingleRecord from "../components/SingleRecord.vue";
-
+  import NoRecord from "../components/NoRecord.vue";
   export default {
     name: 'record',
     data() {
@@ -68,11 +71,13 @@
         timeId: 1,
         gameId: -1,
         page: 1,
-        recordList: []
+        recordList: [],
+        noRecord: false
       }
     },
     components: {
-      'creditData': SingleRecord
+      'creditData': SingleRecord,
+      'no-record': NoRecord
     },
     mounted: function() {
       this.creditInfo()
@@ -229,6 +234,11 @@
         if (record.next_page_url != null) {
           this.page++;
           this.recordGet(this.page, record.data[0].game_id);
+        }
+        if (this.totalTimes == 0) {
+          this.noRecord = true;
+        } else {
+          this.noRecord = false;
         }
       }
     }

@@ -51,7 +51,7 @@
       phoneCode: function() { //获取手机号码(绑定手机)
         let phoneReg = /^1[3-578]\d{9}$/;
         if (phoneReg.test(this.phone) == false) { //输入为非法手机号
-          alert("请输入正确的手机号码")
+          this.$notify({message:'请输入正确的手机号码', background:'#cc3c3e',  duration: 2000});
         } else {
           let postData = {
             phone: this.phone,
@@ -72,20 +72,20 @@
       },
       bindPhone: function() {
         if (this.phone.length == 0) { //未输入手机号码
-          alert("请输入您的手机号码");
+          this.$notify({message:'请输入您的手机号码', background:'#cc3c3e',  duration: 2000});
           return;
         } else if (this.code.length == 0) { //未输入验证码
-          alert("请输入验证码");
+          this.$notify({message:'请输入验证码', background:'#cc3c3e',  duration: 2000});
           return;
         } else {
           let phoneReg = /^1[3-578]\d{9}$/;
           if (phoneReg.test(this.phone) == false) { //格式不正确
-            alert("您输入的手机号码有误");
+            this.$notify({message:'您输入的手机号码有误', background:'#cc3c3e',  duration: 2000});
             return;
           } else {
             let num = parseInt(this.code);
             if (isNaN(num) || num.toString().length != this.code.length) {
-              alert("验证码有误");
+              this.$notify({message:'验证码有误', background:'#cc3c3e',  duration: 2000});
               return;
             }
             let postData = {

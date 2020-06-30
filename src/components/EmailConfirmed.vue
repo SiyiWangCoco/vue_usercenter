@@ -10,31 +10,45 @@
     <div class="inputBoxes">
       <input type="button" class="submitButton" id="setPhoneButton" value="解除绑定" @click="change">
     </div>
+    <div id="addition">
+      <van-popup v-model="res" class="failPop">
+        <fail :alretTitle='alretTitle':alretMsg='alretMsg' @yes="toNoEmail"></fail>
+      </van-popup>
+    </div>
   </div>
 </template>
 
 <script>
   import { mapState} from 'vuex';
+  import FailAlert from "../components/FailAlert.vue";
   export default {
     name: 'email-1',
     data() {
-      return {}
+      return {
+        res: false,
+        alretTitle: '邮箱获取失败',
+        alretMsg: '您还没有设置电子邮箱，点击返回去绑定邮箱'
+      }
     },
-	computed: {
-	  ...mapState({
-	    email: (state) => state.user.email
-	  })
-	},
+    components: {
+      'fail': FailAlert
+    },
+    computed: {
+      ...mapState({
+        email: (state) => state.user.email
+      })
+    },
     mounted: function() {
      let mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
      if (!mailReg.test(this.email)) {
-       alert("您还没有设置电子邮箱");
-       this.noEmail();
-     } 
+      this.res = true;
+     }
     },
     methods: {
-      noEmail: function() {
-        this.$emit('error', true)
+      toNoEmail: function(child) {
+        if (child) {
+          this.$emit('error', true)
+        }
       },
       change: function() {
         this.$emit('change', true)

@@ -12,15 +12,28 @@
     <a class="inputBoxes">
       <input type="button" class="submitButton" id="setPhoneButton" value="更改实名信息" @click="setId()">
     </a>
+    <div id="addition">
+      <van-popup v-model="res" class="failPop">
+        <fail :alretTitle='alretTitle':alretMsg='alretMsg' @yes="toSetId"></fail>
+      </van-popup>
+    </div>
   </div>
 </template>
 
 <script>
   import { mapState} from 'vuex';
+  import FailAlert from "../components/FailAlert.vue";
   export default {
     name: 'identityA',
     data() {
-      return {}
+      return {
+        res: false,
+        alretTitle: '实名信息获取失败',
+        alretMsg: '您还没实名认证，点击返回去实名认证'
+      }
+    },
+    components: {
+      'fail': FailAlert
     },
     computed: {
       ...mapState({
@@ -30,16 +43,18 @@
     },
     mounted: function() {
       if (this.card_id.length == 0) {
-        alert("您还没实名认证");
-        this.setId();
-      }
+        this.res = true;
+        }
     },
     methods: {
-      setId: function() {
-        this.$emit('change', true);
+      toSetId: function(child) {
+        if (child) {
+          this.$emit('change', true);
+        }
       }
     }
   }
+
 </script>
 
 <style scoped>
