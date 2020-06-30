@@ -17,10 +17,16 @@
     <div class="otherFunc" id="loginPageBox">
       <a href="#/login" id="loginPage">已有账号？立即登录</a>
     </div>
+    <div id="addition">
+      <van-popup v-model="res" class="pop">
+        <success :alretMsg='alretMsg':option='option' @yes="toLogin"></success>
+      </van-popup>
+    </div>
   </div>
 </template>
 
 <script>
+  import SuccessAlert from "../components/SuccessAlert.vue";
   export default {
     name: 'register',
     data() {
@@ -34,8 +40,14 @@
         passwordAgain: '',
         class1: 'userInput',
         class2: 'userid',
-        class3: 'password'
+        class3: 'password',
+        res: false,
+        alretMsg: '注册',
+        option: '登录界面'
       }
+    },
+    components: {
+      'success': SuccessAlert
     },
     mounted: function() {
       this.api.Get("/api/VerificationCode/img", this.refreshCode);
@@ -87,7 +99,15 @@
           email: this.email,
           code: this.code
         }
-        this.api.simplePost('/api/web/basic/reg', postData);
+        this.api.simplePost('/api/web/basic/reg', postData, this.success);
+      },
+      success: function() {
+        this.res = true;
+      },
+      toLogin: function(child) {
+        if (child) {
+          this.$router.push({ name: 'login'});
+        }
       }
     }
   }

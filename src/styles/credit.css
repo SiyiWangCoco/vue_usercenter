@@ -2,6 +2,10 @@
   font-family: PingFang;
   src: url("font/PingFang.otf");
 }
+@font-face {
+  font-family: PingFang;
+  src: url("font/PingFang.otf");
+}
 
 .base {
   background: rgba(255,255,255,1) url(./../assets/creditBackground.png) no-repeat center 0px;

@@ -22,11 +22,17 @@
       <a id="wechat" :href="'/api'+ third_login_url.google"></a>
       <a id="weibo" :href="weibo"></a>
     </div>
+    <div id="addition">
+      <van-popup v-model="res" class="pop">
+        <success :alretMsg='alretMsg':option='option' @yes="toInfo"></success>
+      </van-popup>
+    </div>
   </div>
 </template>
 
 <script>
   import {mapState, mapMutations, mapAction } from 'vuex'
+  import SuccessAlert from "../components/SuccessAlert.vue";
   export default {
     name: 'login',
     data() {
@@ -42,8 +48,15 @@
         userid: '',
         qq: '',
         wechat: '',
-        weibo: ''
+        weibo: '',
+        res: false,
+        alretMsg: '登录',
+        option: '主页'
+
       }
+    },
+    components: {
+      'success': SuccessAlert
     },
     computed: {
       ...mapState({
@@ -105,6 +118,11 @@
           });
         }
       },
+      toInfo: function(child) {
+        if (child) {
+          this.$router.push({ name: 'info'});
+        }
+      },
       ...mapMutations({
         setGameInfo(commit, data) {
           commit("setGameInfo", data)
@@ -113,6 +131,7 @@
           commit("setQuestion", data)
         },
         setUserInfo(commit, data) {
+          this.res = true;
           commit("setUserInfo", data)
         }
       })

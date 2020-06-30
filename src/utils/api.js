@@ -50,7 +50,7 @@ const loginPost = (api1, postData, api2, func) => {
   }).then((res) => {
     // console.log(res)
     if (res.data.code == 0) {
-      alert('success')
+      //alert('success')
       var storage = window.localStorage;
       storage.token = res.data.data.user_token;
       token = res.data.data.user_token;

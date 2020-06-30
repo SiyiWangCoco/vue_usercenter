@@ -97,9 +97,14 @@
       this.curLogo = this.logo;
       this.curNick = this.nick;
       this.curSex = this.getSex;
-      if (this.curBirth.length != 0) {
+      if (this.curLogo.length == 0) {
+        this.curLogo = '../assets/people_fill.png'
+      }
+      if (this.curBirth != null) {
         let date = this.curBirth.split("-");
         this.currentDate = new Date(date[0], date[1] - 1, date[2]);
+      } else {
+        this.curBirth = '未设置'
       }
     },
     methods: {
@@ -136,9 +141,11 @@
         this.confirmed = false;
       },
       closeBirth: function() {
-        if (this.confirmed == false) {
+        if (this.confirmed == false && this.curBirth != '未设置') {
           let date = this.curBirth.split("-");
           this.currentDate = new Date(date[0], date[1] - 1, date[2]);
+        } else if (this.confirmed == false && this.curBirth == '未设置') {
+          this.currentDate = new Date();
         }
       },
       cancelBirth: function() {
@@ -167,6 +174,9 @@
       },
       changeInfo: function() {
         let postData;
+        if(this.curLogo == '../assets/people_fill.png') {
+          this.curLogo = '';
+        }
         if (this.sex == 0) {
           postData = {
             logo: this.curLogo,

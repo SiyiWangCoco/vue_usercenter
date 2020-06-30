@@ -28,35 +28,36 @@ const user = {
       state.nick_id = data.nick_id; //id
       state.password_level = data.password_level; //有无密码
       state.third_accounts = data.third_accounts; // 第三方
-      console.log(data.logo)
-      if (data.logo.length != 0) { //头像
-        state.logo = data.logo;
-      }
-      if (data.nick.length != 0) { //昵称
-        state.nick = data.nick;
-      }
-      if (data.account.length != 0) { //用户名
-        state.account = data.account;
-      }
+      state.nick = data.nick;//昵称
+      state.logo = data.logo; //头像
+      state.account = data.account;//用户名
+      state.card_id = data.card_id;//身份证号
       if (data.real_name.length != 0) { //实名
         state.real_name = data.real_name;
-      }
-      if (data.card_id.length != 0) { //身份证号
-        state.card_id = data.card_id;
+      } else {
+         state.real_name = '未设置';
       }
       if (data.phone.length != 0) { //手机号
         state.phone = data.phone;
+      }else {
+         state.phone = '未设置';
       }
       if (data.email.length != 0) { //邮箱
         state.email = data.email;
+      }else {
+         state.email = '未设置';
       }
       if (data.security_question != null) { //密保
         state.security_question = data.security_question;
+      } else {
+        state.security_question = null;
+        state.question = '未设置';
       }
-      if (data.birthday.length != 0) { //邮箱
+      if (data.birthday != null) { //生日
         state.birthday = data.birthday;
+      } else {
+        state.birthday = null;
       }
-      window.location.href = '#/user/info';
     },
     changeUserInfo(state, postData) { //logo, birthday, sex没有该信息 ,nick
       state.logo = postData.logo;
@@ -112,7 +113,6 @@ const user = {
       return state.question;
     },
     getSex(state) { //性别
-      console.log(state)
       if (state.sex == 0) {
         return '未知';
       } else if (state.sex == 1) {
